@@ -1,14 +1,3 @@
-from view.cli.view_tournament import tournament_menu, tournament_menu_back, tournament_menu_create
-
-def menu_navigation(list):
-    if list == []:
-        start_menu(list)
-    elif list == [1]:
-        tournament_menu(list)
-    elif list == [1, 1]:
-        tournament_menu_create(list)
-    elif list == [1, 4]:
-        tournament_menu_back(list)
 
 
 """Menu de départ"""
@@ -36,7 +25,7 @@ def start_menu(list):
 
 Que souhaitez-vous faire ?
 1. Créer/Modifier/Consulter les tournois
-2. Créer/Modifier/Consulter les joureurs
+2. Créer/Modifier/Consulter les joueurs
 3. Afficher un rapport
 4. Sauvegarder/Charger
 5. Quitter

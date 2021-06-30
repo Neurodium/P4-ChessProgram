@@ -1,11 +1,13 @@
-from model.player import Players
+from model.player import Player
 from datetime import datetime
 
-def add_new_player():
+def new_player(player_list):
     last_name = input("Nom: ")
     first_name = input("Prénom: ")
-    year = input("Année de naissance: ")
-    month = input("Mois de naissance: ")
-    day = input("Jour de naissance: ")
+    date = input("Date de naissance (JJ/MM/AAAA): ")
     sex = input("Sexe (M/F): ")
-    return Players(last_name, first_name, datetime(int(year), int(month), int(day)), sex)
+    rank = int(input("Rank ?"))
+    player = Player(last_name, first_name, date, sex, rank)
+    player_list.append(player)
+    return player_list
+
