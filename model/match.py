@@ -11,6 +11,6 @@ class Round:
         self.date_end = date_end
 
 class Match:
-    def __init__(self, player, score):
-        self.player = player
+    def __init__(self, players, score = 0):
+        self.players = players
         self.score = score

@@ -9,10 +9,10 @@ menu = []
 players = []
 tournament = []
 
-new_player(players)
+"""new_player(players)
 new_player(players)
 print(players)
-show_player_list_rank(players)
+show_player_list_rank(players)"""
 
 
 
