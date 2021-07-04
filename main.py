@@ -1,5 +1,5 @@
 from datetime import datetime
-from controller.controller_player import new_player
+from controller.controller_player import add_player
 from controller.controller_match import match_round_1
 from view.cli.view_player import show_player_list_rank
 from view.cli.view_match import show_match_current_round

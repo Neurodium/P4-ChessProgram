@@ -1,14 +1,23 @@
-from view.cli.view_tournament import tournament_menu, tournament_menu_back, tournament_menu_create
-from view.cli.view_menu import start_menu
+from view.cli.view_tournament import menu_tournament, menu_tournament_back, menu_tournament_create, menu_tournament_current, menu_tournament_add_player
+from view.cli.view_menu import menu_start
 from controller.controller_tournament import create_tournament
+from controller.controller_player import add_player
 
 def menu_navigation(list, tournament_list, player_list):
     if list == []:
-        start_menu(list)
+        menu_start(list)
     elif list == [1]:
-        tournament_menu(list)
+        menu_tournament(list)
     elif list == [1, 1]:
-        tournament_menu_create(list)
-        create_tournament(tournament_list)
+        list, choice = menu_tournament_create(list)
+        if choice == "O":
+            create_tournament(tournament_list)
+    elif list == [1, 2]:
+        menu_tournament_current(list, tournament_list)
+    elif list == [1, 2, 1]:
+        menu_tournament_add_player(list)
+        add_player(tournament_list, player_list)
+        print(tournament_list[-1].players)
+        print(player_list)
     elif list == [1, 4]:
-        tournament_menu_back(list)
+        menu_tournament_back(list)

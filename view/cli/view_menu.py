@@ -3,7 +3,7 @@
 """Menu de départ"""
 
 
-def start_menu(list):
+def menu_start(list):
     menu0 = input("""                                          =||=
                          o   |\ ,'`. /||\ ,'`. /|    o
  _   _   _   |\__      /\^/\ | `'`'`' || `'`'`' |  /\^/\   |\__     _   _   _
@@ -30,7 +30,7 @@ Que souhaitez-vous faire ?
 4. Sauvegarder/Charger
 5. Quitter
  
-            """)
+""")
     list.append(int(menu0))
     return list
 

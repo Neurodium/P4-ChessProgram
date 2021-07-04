@@ -7,14 +7,15 @@ def add_player(tournament_list, player_list):
     date = input("Date de naissance (JJ/MM/AAAA): ")
     gender = input("Genre (M/F): ")
     player = Player(last_name, first_name, date, gender)
-    if player in tournament_list[-1].players:
-        print(f"Le joueur est déjà dans le tournoi {tournament_list[-1].name}")
-        pass
-    else:
+    if len(tournament_list[-1].players) == 0 or player.last_name not in tournament_list[-1].players.last_name:
         tournament_list[-1].players.append(player)
-        if player in player_list:
+        if player.last_name in player_list[0].last_name:
             pass
         else:
             player_list.append(player)
+    else:
+        print(f"Le joueur est déjà dans le tournoi {tournament_list[-1].name}")
+        pass
+
     return player_list, tournament_list
 
