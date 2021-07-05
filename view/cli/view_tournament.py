@@ -29,7 +29,7 @@ Voulez-vous créer un tournoi ? O/N
 def menu_tournament_current(list, tournament_list):
     menu = input(f"""
 -------- 1.2  TOURNOI.EN COURS -------
-1. Ajouter des joueurs (max {tournament_list[-1].max_players})
+1. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players})
 2. Entrer les résultats du tour en cours
 3. Modifier des résultats
 4. Valider tous les résultats et clôturer le tournoi en cours

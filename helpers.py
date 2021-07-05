@@ -17,7 +17,5 @@ def menu_navigation(list, tournament_list, player_list):
     elif list == [1, 2, 1]:
         menu_tournament_add_player(list)
         add_player(tournament_list, player_list)
-        print(tournament_list[-1].players)
-        print(player_list)
     elif list == [1, 4]:
         menu_tournament_back(list)

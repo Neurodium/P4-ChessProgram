@@ -1,5 +1,5 @@
 class Tournament:
-    def __init__(self, name, place, date, time_control, players = [], rounds = [],description="", nbtours = 4, max_players = 8):
+    def __init__(self, name, place, date, time_control, players = [], rounds = [],description="", nbtours = 4, max_players = 8, closed="N"):
         self.name = name
         self.place = place
         self.date = date
@@ -9,6 +9,7 @@ class Tournament:
         self.description = description
         self.nbtours = nbtours
         self.max_players = max_players
+        self.closed = closed
 
 
 
