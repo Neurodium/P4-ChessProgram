@@ -13,28 +13,34 @@ def find_player_tournament(player, tournament_list):
     return False
 
 def add_player(tournament_list, player_list):
-    """add_new_player = "O"
-    while add_new_player == "O" and len(tournament_list[-1].players) < tournament_list[-1].max_players:
-        last_name = input("Nom: ")
-        first_name = input("Prénom: ")
-        date = input("Date de naissance (JJ/MM/AAAA): ")
-        gender = input("Genre (M/F): ")
-        player = Player(last_name, first_name, date, gender)
-        if find_player_tournament(player, tournament_list) == False:
-            tournament_list[-1].players.append(player)
-            if find_player_global(player, player_list) == False:
-                player_list.append(player)
+    if len(tournament_list) == 0:
+        pass
+    elif len(tournament_list[-1].players) == tournament_list[-1].max_players:
+        print("Le tournoi est complet.")
+        pass
+    else:
+        """add_new_player = "O"
+        while add_new_player == "O" and len(tournament_list[-1].players) < tournament_list[-1].max_players:
+            last_name = input("Nom: ")
+            first_name = input("Prénom: ")
+            date = input("Date de naissance (JJ/MM/AAAA): ")
+            gender = input("Genre (M/F): ")
+            player = Player(last_name, first_name, date, gender)
+            if find_player_tournament(player, tournament_list) == False:
+                tournament_list[-1].players.append(player)
+                if find_player_global(player, player_list) == False:
+                    player_list.append(player)
+                else:
+                    pass
             else:
+                print(f"Le joueur est déjà dans le tournoi {tournament_list[-1].name}")
                 pass
-        else:
-            print(f"Le joueur est déjà dans le tournoi {tournament_list[-1].name}")
-            pass
-        if len(tournament_list[-1].players) < tournament_list[-1].max_players:
-            add_new_player = input("Voulez-vous ajouter un autre joueur ? O/N")
-        else:
-            add_new_player = "N"
-            """
-    tournament_list[-1].players = player_list
+            if len(tournament_list[-1].players) < tournament_list[-1].max_players:
+                add_new_player = input("Voulez-vous ajouter un autre joueur ? O/N")
+            else:
+                add_new_player = "N"
+                """
+        tournament_list[-1].players = player_list
 
     return player_list, tournament_list
 

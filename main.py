@@ -3,11 +3,14 @@ from controller.controller_player import add_player
 from controller.controller_match import match_first_round
 from view.cli.view_player import show_player_list_rank
 from view.cli.view_match import show_match_current_round
+from view.cli.view_menu import show_logo
 from model.player import Player
 from helpers import menu_navigation
 
+show_logo()
 
 menu = []
+rounds = []
 players = []
 tournament = []
 
@@ -23,7 +26,7 @@ players = [Player("CRETENET", "Julien", "03/05/1983", "M", rank=0, tournament_po
 
 
 while menu != [5]:
-    menu_navigation(menu, tournament, players)
+    menu_navigation(menu, tournament, players, rounds)
 
 print(tournament[0].name)
 

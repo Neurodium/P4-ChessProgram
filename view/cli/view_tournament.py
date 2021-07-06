@@ -11,18 +11,7 @@ def menu_tournament(list):
     list.append(int(menu))
     return list
 
-"""Menu tournoi création"""
-def menu_tournament_create(list):
-    choice = input("""
--------- 1.1 TOURNOI.CREATION  -------
-Voulez-vous créer un tournoi ? O/N
 
-""")
-    if choice == "N":
-        list.pop()
-    else:
-        list.pop()
-    return list, choice
 
 
 """Menu tournoi en cours"""
@@ -40,15 +29,7 @@ def menu_tournament_current(list, tournament_list):
     return list
 
 
-"""Menu tournoi en cours ajouter joueurs"""
-def menu_tournament_add_player(list):
-    print(f"""
--------- 1.2.1 TOURNOI.EN COURS.AJOUTER JOUEURS -------
-Veuillez entrer les informations du joueur à ajouter au tournoi: 
 
-""")
-    list.pop()
-    return list
 
 """Menu tournoi en cours entrer résultats"""
 def tournament_menu_current_new_results():
