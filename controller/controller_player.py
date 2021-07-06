@@ -13,8 +13,8 @@ def find_player_tournament(player, tournament_list):
     return False
 
 def add_player(tournament_list, player_list):
-    add_new_player = "O"
-    while add_new_player == "O":
+    """add_new_player = "O"
+    while add_new_player == "O" and len(tournament_list[-1].players) < tournament_list[-1].max_players:
         last_name = input("Nom: ")
         first_name = input("Prénom: ")
         date = input("Date de naissance (JJ/MM/AAAA): ")
@@ -29,7 +29,12 @@ def add_player(tournament_list, player_list):
         else:
             print(f"Le joueur est déjà dans le tournoi {tournament_list[-1].name}")
             pass
-        add_new_player = input("Voulez-vous ajouter un autre joueur ? O/N")
+        if len(tournament_list[-1].players) < tournament_list[-1].max_players:
+            add_new_player = input("Voulez-vous ajouter un autre joueur ? O/N")
+        else:
+            add_new_player = "N"
+            """
+    tournament_list[-1].players = player_list
 
     return player_list, tournament_list
 

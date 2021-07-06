@@ -1,6 +1,6 @@
 from datetime import datetime
 from controller.controller_player import add_player
-from controller.controller_match import match_round_1
+from controller.controller_match import match_first_round
 from view.cli.view_player import show_player_list_rank
 from view.cli.view_match import show_match_current_round
 from model.player import Player
@@ -20,9 +20,6 @@ players = [Player("CRETENET", "Julien", "03/05/1983", "M", rank=0, tournament_po
             Player("JOUVERT", "Nicolas", "08/10/1982", "M", rank=0, tournament_points=0),
             Player("ARGO", "Sandra", "11/11/1991", "F", rank=0, tournament_points=0)
            ]
-
-matchs = match_round_1(players)
-show_match_current_round(matchs)
 
 
 while menu != [5]:

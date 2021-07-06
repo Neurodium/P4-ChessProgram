@@ -2,6 +2,7 @@ from view.cli.view_tournament import menu_tournament, menu_tournament_back, menu
 from view.cli.view_menu import menu_start
 from controller.controller_tournament import create_tournament
 from controller.controller_player import add_player
+from controller.controller_match import match_first_round
 
 def menu_navigation(list, tournament_list, player_list):
     if list == []:
@@ -17,5 +18,7 @@ def menu_navigation(list, tournament_list, player_list):
     elif list == [1, 2, 1]:
         menu_tournament_add_player(list)
         add_player(tournament_list, player_list)
+    elif list == [1, 2, 2]:
+        match_first_round(list, tournament_list)
     elif list == [1, 4]:
         menu_tournament_back(list)

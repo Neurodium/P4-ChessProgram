@@ -1,23 +1,24 @@
 """Attribution des matchs"""
-def match_round_1(tournament_list):
-    if len(tournament_list) != 0:
-        tournament_list[-1].players = sorted(tournament_list[-1].players, key=lambda tournament_list[-1].players: player.rank)
-        match_list = []
-        half_list = int(len(tournament_list[-1].players)/2)
-        for i in range(half_list):
-            match_list.append((tournament_list[-1].players[i], tournament_list[-1].players[i + half_list]))
-        return match_list
-    else:
+def match_first_round(list, tournament_list):
+    if len(tournament_list) == 0:
         pass
+    else:
+        players_match = tournament_list[-1].players
+        players_match = sorted(players_match, key=lambda player: player.rank)
+        print(players_match)
+        match_list = []
+        half_list = int(len(players_match)/2)
+        print(half_list)
+        for player in range(half_list):
+            match_list.append((players_match[player], players_match[player + half_list]))
+    list.pop()
+    print(match_list)
+    return match_list
 
-def match_round_2(tournament_list):
-    if len(tournament_list) != 0:
-        tournament_list[-1].players = sorted(tournament_list[-1].players, key=lambda player: (player.tournament_points, player.rank))
-        match_list = []
-        half_list = int(len(tournament_list[-1].players)/2)
-        for i in range(half_list):
-            match_list.append((tournament_list[-1].players[i], tournament_list[-1].players[i+1]))
-            i += 1
-            return match_list
-    else:
-        pass
+def match_next_round(player_list):
+    player_list = sorted(player_list, key=lambda player: (player.tournament_points, player.rank))
+    match_list = []
+    half_list = int(len(player_list)/2)
+    for player in range(half_list):
+        match_list.append((player_list[player], player_list[player+1]))
+        player += 1
