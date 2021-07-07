@@ -13,6 +13,7 @@ menu = []
 rounds = []
 players = []
 tournament = []
+matchs = []
 
 players = [Player("CRETENET", "Julien", "03/05/1983", "M", rank=0, tournament_points=0),
             Player("DE ANDRADE", "Laurie", "03/04/1987", "F", rank=0, tournament_points=0),
@@ -26,7 +27,7 @@ players = [Player("CRETENET", "Julien", "03/05/1983", "M", rank=0, tournament_po
 
 
 while menu != [5]:
-    menu_navigation(menu, tournament, players, rounds)
+    menu_navigation(menu, tournament, players, rounds, matchs)
 
 print(tournament[0].name)
 

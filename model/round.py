@@ -1,10 +1,10 @@
 from datetime import datetime
 
 class Round:
-    def __init__(self, name, date_begin, date_end="", match_list=[], closed="N"):
+    def __init__(self, name, date_begin, date_end="", matchs_round = [], closed="N"):
         self.name = name
         self.date_begin = date_begin
         self.date_end = date_end
-        self.match_list = match_list
+        self.matchs_round = matchs_round
         self.closed = closed
 

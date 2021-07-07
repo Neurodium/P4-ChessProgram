@@ -1,3 +1,5 @@
+from view.cli.view_match import show_match_current_round
+
 """Chess drawing launch"""
 def show_logo():
     print("""                                    =||=
@@ -21,8 +23,8 @@ def show_logo():
 
 
 """Start Menu"""
-def menu_start(list, tournament_list):
-    if len(tournament_list) == 0:
+def menu_start(list, tournament_list, round_list, match_list):
+    if len(tournament_list) == 0 or tournament_list[-1].closed == "Y":
         menu0 = input("""        
 Que souhaitez-vous faire ?
 1. Créer un tournoi
@@ -32,7 +34,35 @@ Que souhaitez-vous faire ?
 5. Quitter
 """)
 
+    elif len(round_list) == 0:
+        menu0 = input(f"""
+----- Tournoi en cours: {tournament_list[-1].name}
+
+Que souhaitez-vous faire ?
+1. Créer un tournoi
+2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players}) 
+3. Générer un nouveau tour
+4. Sauvegarder/Charger
+5. Quitter
+""")
+    elif len(match_list) == 0:
+        menu0 = input(f"""
+----- Tournoi en cours: {tournament_list[-1].name}
+----- {round_list[-1].name} en cours
+
+Que souhaitez-vous faire ?
+1. Créer un tournoi
+2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players}) 
+3. Générer un nouveau tour
+4. Sauvegarder/Charger
+5. Quitter
+""")
     else:
+        print(f"""
+----- Tournoi en cours: {tournament_list[-1].name}
+----- {round_list[-1].name} en cours
+----- Matchs en cours:""" )
+        show_match_current_round(match_list)
         menu0 = input(f"""
 Que souhaitez-vous faire ?
 1. Créer un tournoi
@@ -74,11 +104,13 @@ Veuillez entrer les informations du joueur à ajouter au tournoi {tournament_lis
 def menu_tournament_new_round(list, round_list, tournament_list):
     if len(tournament_list) == 0:
         print("Veuillez créer un nouveau tournoi")
-    elif round_list[-1].closed == "N":
-        print("Un tour est déjà en cours, veuillez le clôturer quand il sera terminé")
-    else:
+    elif len(tournament_list[-1].players) < tournament_list[-1].max_players :
+        print("Veuillez terminer d'ajouter les joueurs")
+    elif len(round_list) == 0 or round_list[-1].closed == "Y":
         print(f"""
 -------- 3. GENERER UN NOUVEAU TOUR -------
-Les paires du Round {(len(round_list))+1} vont être créées""")
+Les paires du Round {(len(round_list)) + 1} vont être créées""")
+    elif round_list[-1].closed == "N":
+        print("Un tour est déjà en cours, veuillez le clôturer quand il sera terminé")
     list.pop()
     return list
