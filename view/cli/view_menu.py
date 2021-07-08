@@ -30,8 +30,12 @@ Que souhaitez-vous faire ?
 1. Créer un tournoi
 2. Ajouter des joueurs au tournoi
 3. Générer un nouveau tour
-4. Sauvegarder/Charger
-5. Quitter
+4. Entrer les scores
+5. Clôturer le tour
+6. Clôturer le tournoi
+7. Rapports
+8. Sauvegarder/Charger
+9. Quitter
 """)
 
     elif len(round_list) == 0:
@@ -42,8 +46,12 @@ Que souhaitez-vous faire ?
 1. Créer un tournoi
 2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players}) 
 3. Générer un nouveau tour
-4. Sauvegarder/Charger
-5. Quitter
+4. Entrer les scores
+5. Clôturer le tour
+6. Clôturer le tournoi
+7. Rapports
+8. Sauvegarder/Charger
+9. Quitter
 """)
     elif len(match_list) == 0:
         menu0 = input(f"""
@@ -54,8 +62,12 @@ Que souhaitez-vous faire ?
 1. Créer un tournoi
 2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players}) 
 3. Générer un nouveau tour
-4. Sauvegarder/Charger
-5. Quitter
+4. Entrer les scores
+5. Clôturer le tour
+6. Clôturer le tournoi
+7. Rapports
+8. Sauvegarder/Charger
+9. Quitter
 """)
     else:
         print(f"""
@@ -68,8 +80,12 @@ Que souhaitez-vous faire ?
 1. Créer un tournoi
 2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players}) 
 3. Générer un nouveau tour
-4. Sauvegarder/Charger
-5. Quitter
+4. Entrer les scores
+5. Clôturer le tour
+6. Clôturer le tournoi
+7. Rapports
+8. Sauvegarder/Charger
+9. Quitter
 """)
     list.append(int(menu0))
     return list
@@ -101,16 +117,31 @@ Veuillez entrer les informations du joueur à ajouter au tournoi {tournament_lis
     return list
 
 """Menu new round"""
-def menu_tournament_new_round(list, round_list, tournament_list):
+def menu_tournament_new_round(list, round_list, tournament_list, match_list):
     if len(tournament_list) == 0:
         print("Veuillez créer un nouveau tournoi")
     elif len(tournament_list[-1].players) < tournament_list[-1].max_players :
         print("Veuillez terminer d'ajouter les joueurs")
-    elif len(round_list) == 0 or round_list[-1].closed == "Y":
+    elif len(match_list) == 0:
         print(f"""
 -------- 3. GENERER UN NOUVEAU TOUR -------
 Les paires du Round {(len(round_list)) + 1} vont être créées""")
-    elif round_list[-1].closed == "N":
+    else:
         print("Un tour est déjà en cours, veuillez le clôturer quand il sera terminé")
     list.pop()
     return list
+
+"""Menu entrer score"""
+def menu_enter_score(list):
+    print(f"""
+-------- 4. ENTRER LES SCORES -------
+""")
+    list.pop()
+
+def menu_close_round(list):
+    menu5 = input(f"""
+-------- 5. CLOTURER LE TOUR -------
+Voulez-vous clôturer le tour ? O/N
+""")
+    list.pop()
+    return list, menu5

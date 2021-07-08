@@ -12,6 +12,13 @@ def find_player_tournament(player, tournament_list):
             return True
     return False
 
+def find_player_previous_match(players_match, round_list):
+    for i in range(len(round_list)-1):
+        for j in range(len(round_list[i].matchs_round)):
+            if round_list[i].matchs_round[j] == (players_match[0], players_match[1]) or round_list[i].matchs_round[j] == (players_match[1], players_match[0]):
+                return True
+    return False
+
 def add_player(tournament_list, player_list):
     if len(tournament_list) == 0:
         pass
@@ -44,3 +51,6 @@ def add_player(tournament_list, player_list):
 
     return player_list, tournament_list
 
+def update_player_rank(player_list, tournament_list):
+    for i in range(len(tournament_list[-1].matchs)):
+        tournament_list[-1].matchs
