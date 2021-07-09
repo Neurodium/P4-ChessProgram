@@ -26,7 +26,7 @@ players = [Player("CRETENET", "Julien", "03/05/1983", "M", rank=0, tournament_po
            ]
 
 
-while menu != [9]:
+while menu != [8]:
     menu_navigation(menu, tournament, players, rounds, matchs)
 
 print(tournament[0].name)

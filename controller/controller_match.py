@@ -1,8 +1,9 @@
 from model.match import Match
+from controller.controller_player import find_player_previous_match
 
 """Attribution des matchs"""
 def match_first_round(tournament_list, round_list, match_list):
-    if len(match_list) == 0:
+    if len(match_list) == 0 and len(round_list) == 1:
         players_match = tournament_list[-1].players
         players_match = sorted(players_match, key=lambda player: player.rank)
         half_list = int(len(players_match)/2)
@@ -16,22 +17,24 @@ def match_first_round(tournament_list, round_list, match_list):
 def match_next_round(tournament_list, round_list, match_list):
     if len(match_list) == 0:
         players_match = tournament_list[-1].players
-        players_match = sorted(players_match, key=lambda player: (player.tournament_points, player.rank))
-        half_list = int(len(players_match)/2)
+        players_match = sorted(players_match, key=lambda player: (player.tournament_points, player.rank), reverse=True)
         if find_player_previous_match(players_match, round_list) == False:
-            for player in range(half_list):
-                match_list.append(Match(players_match[player], players_match[player+1]))
-                player += 1
+            player = 0
+            while player < len(players_match):
+                match_list.append(Match((players_match[player], players_match[player + 1])))
+                player += 2
             round_list[-1].matchs_round = match_list
         else:
-            match_list.append(Match(players_match[player], players_match[player + 2]))
-            match_list.append(Match(players_match[player+1], players_match[player + 3]))
-            for player in range(half_list-2):
-                match_list.append(Match(players_match[player+4], players_match[player+5]))
-                player += 1
+            match_list.append(Match((players_match[0], players_match[2])))
+            match_list.append(Match((players_match[1], players_match[3])))
+            player = 4
+            while player < len(players_match):
+                match_list.append(Match((players_match[player], players_match[player+1])))
+                player += 2
             round_list[-1].matchs_round = match_list
     else:
         pass
+    return tournament_list, round_list, match_list
 
 def enter_match_score(match_list, round_list, tournament_list):
     """    for match in range(len(match_list)):
@@ -48,5 +51,4 @@ def enter_match_score(match_list, round_list, tournament_list):
     match_list[2].score = [0, 1]
     match_list[3].score = [1, 0]
     round_list[-1].matchs_round = match_list
-    tournament_list[-1].rounds = round_list
     return match_list, round_list, tournament_list
