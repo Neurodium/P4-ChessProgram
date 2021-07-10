@@ -47,7 +47,8 @@ def add_player(tournament_list, player_list):
             else:
                 add_new_player = "N"
                 """
-        tournament_list[-1].players = player_list
+        for player in range(len(player_list)):
+            tournament_list[-1].players.append(player_list[player])
 
     return tournament_list
 

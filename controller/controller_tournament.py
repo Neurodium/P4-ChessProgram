@@ -27,8 +27,6 @@ def close_tournament(tournament_list, player_list, round_list):
     for player in range(len(tournament_list[-1].players)):
         for i in range(len(player_list)):
             if tournament_list[-1].players[player].last_name == player_list[i].last_name and tournament_list[-1].players[player].first_name == player_list[i].first_name:
-                print(player_list[i].tournament_points)
-                print(float(tournament_list[-1].players[player].tournament_points))
                 player_list[i].tournament_points += float(tournament_list[-1].players[player].tournament_points)
     return tournament_list, player_list, round_list
 

@@ -9,10 +9,9 @@ def match_first_round(tournament_list, round_list, match_list):
         half_list = int(len(players_match)/2)
         for player in range(half_list):
             match_list.append(Match((players_match[player], players_match[player + half_list])))
-        round_list[-1].matchs_round = match_list
     else:
         pass
-    return match_list, round_list, tournament_list
+    return match_list, tournament_list
 
 def match_next_round(tournament_list, round_list, match_list):
     if len(match_list) == 0:
@@ -23,7 +22,6 @@ def match_next_round(tournament_list, round_list, match_list):
             while player < len(players_match):
                 match_list.append(Match((players_match[player], players_match[player + 1])))
                 player += 2
-            round_list[-1].matchs_round = match_list
         else:
             match_list.append(Match((players_match[0], players_match[2])))
             match_list.append(Match((players_match[1], players_match[3])))
@@ -31,12 +29,11 @@ def match_next_round(tournament_list, round_list, match_list):
             while player < len(players_match):
                 match_list.append(Match((players_match[player], players_match[player+1])))
                 player += 2
-            round_list[-1].matchs_round = match_list
     else:
         pass
-    return tournament_list, round_list, match_list
+    return tournament_list, match_list
 
-def enter_match_score(match_list, round_list, tournament_list):
+def enter_match_score(match_list, tournament_list):
     """    for match in range(len(match_list)):
         answer = input(f"Voulez-vous entrer les scores pour le Match {match + 1} ? O/N")
         if answer == "O":
@@ -50,5 +47,4 @@ def enter_match_score(match_list, round_list, tournament_list):
     match_list[1].score = [0.5, 0.5]
     match_list[2].score = [0, 1]
     match_list[3].score = [1, 0]
-    round_list[-1].matchs_round = match_list
-    return match_list, round_list, tournament_list
+    return match_list, tournament_list

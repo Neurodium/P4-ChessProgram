@@ -21,13 +21,15 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
             add_new_round(round_list, tournament_list, match_list)
             match_first_round(tournament_list, round_list, match_list)
     elif list == [3]:
+        print(player_list[0].tournament_points)
         if len(match_list) != 0:
             menu_enter_score(list)
-            enter_match_score(match_list, round_list, tournament_list)
+            enter_match_score(match_list, tournament_list)
             if check_match_points(match_list) == True:
                 if len(round_list) < (len(tournament_list[-1].players)-1):
                     menu_close_round(round_list)
                     close_round(match_list, tournament_list, round_list)
+                    print(player_list[0].tournament_points)
                     menu_tournament_new_round(round_list, tournament_list, match_list)
                     add_new_round(round_list, tournament_list, match_list)
                     match_next_round(tournament_list, round_list, match_list)
