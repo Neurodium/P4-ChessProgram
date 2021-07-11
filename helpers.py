@@ -1,5 +1,5 @@
 from view.cli.view_tournament import menu_tournament_back
-from view.cli.view_menu import menu_start, menu_tournament_create, menu_tournament_add_player, menu_tournament_new_round, menu_enter_score, menu_close_round, menu_all_match_played, menu_close_tournament
+from view.cli.view_menu import menu_start, menu_tournament_create, menu_tournament_add_player, menu_tournament_new_round, menu_enter_score, menu_close_round, menu_all_match_played, menu_close_tournament, menu_tournament_created
 from view.cli.view_match import show_match_current_round
 from controller.controller_tournament import create_tournament, close_tournament
 from controller.controller_player import add_player, update_players_rank, change_player_rank
@@ -8,13 +8,19 @@ from controller.controller_round import add_new_round, close_round, check_match_
 
 def menu_navigation(list, tournament_list, player_list, round_list, match_list):
     if list == []:
-        menu_start(list, tournament_list, round_list, match_list)
+        list = menu_start(list, tournament_list, round_list, match_list)
     elif list == [1]:
         list, choice = menu_tournament_create(list)
         if choice == "O":
-            create_tournament(tournament_list)
+            if len(tournament_list) == 0 or tournament_list[-1].closed == "Y":
+                tournament_list = create_tournament(tournament_list)
+            else:
+                menu_tournament_created()
+            print(tournament_list)
+            for tournament in tournament_list:
+                print(tournament.rounds)
     elif list == [2]:
-        menu_tournament_add_player(list, tournament_list)
+        list = menu_tournament_add_player(list, tournament_list)
         add_player(tournament_list, player_list)
         if len(tournament_list[-1].players) == tournament_list[-1].max_players:
             menu_tournament_new_round(round_list, tournament_list, match_list)
@@ -26,7 +32,7 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
             menu_enter_score(list)
             enter_match_score(match_list, tournament_list)
             if check_match_points(match_list) == True:
-                if len(round_list) < (len(tournament_list[-1].players)-1):
+                if len(round_list) < tournament_list[-1].nbtours:
                     menu_close_round(round_list)
                     close_round(match_list, tournament_list, round_list)
                     print(player_list[0].tournament_points)
@@ -41,10 +47,16 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
     elif list == [4]:
         choice, list = menu_close_tournament(list, tournament_list, match_list, round_list)
         if choice == "O":
-            close_tournament(tournament_list, player_list, round_list)
+            close_tournament(tournament_list, round_list)
             update_players_rank(player_list)
+            print(match_list)
+            for round in range(len(tournament_list[-1].rounds)):
+                print(tournament_list[-1].rounds[round].matchs_round)
             print(round_list)
             print(tournament_list[-1].rounds)
+            for player in range(len(player_list)):
+                print(player_list[player].tournament_points)
+                print(tournament_list[-1].players[player].tournament_points)
         else:
             pass
     elif list == [5]:

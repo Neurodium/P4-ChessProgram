@@ -19,7 +19,7 @@ def show_logo():
           /    \     /    \   /    \   /    \    /    \   /    \   /    \     /    |
          |______|   |______| |______| |______|  |______| |______| |______|   |______|
         
-                            CHESS TOUNRNAMENT V1.0""")
+                            CHESS TOURNAMENT V1.0""")
 
 
 """Start Menu"""
@@ -99,6 +99,10 @@ Voulez-vous créer un tournoi ? O/N
     list.pop()
     return list, choice
 
+"""Menu tournament already created"""
+def menu_tournament_created():
+    print("Il y a déjà un tournoi en cours, vous ne pouvez en créer un nouveau qu'après l'avoir clôturé")
+
 """Menu add player to tournament"""
 def menu_tournament_add_player(list, tournament_list):
     if len(tournament_list) == 0:
@@ -150,7 +154,7 @@ def menu_close_tournament(list, tournament_list, match_list, round_list):
     print("""
 -------- 4. CLOTURER LE TOURNOI -------
 """)
-    if tournament_list[-1].closed == "N" and len(match_list) == 0 and len(round_list) == len(tournament_list[-1].players)-1:
+    if tournament_list[-1].closed == "N" and len(match_list) == 0 and len(round_list) == tournament_list[-1].nbtours:
         choice = input(f"Voulez_vous clôturer le tournoi {tournament_list[-1].name} ? O/N")
     else:
         choice = "N"
