@@ -33,18 +33,18 @@ def match_next_round(tournament_list, round_list, match_list):
         pass
     return tournament_list, match_list
 
-def enter_match_score(match_list, tournament_list):
-    """    for match in range(len(match_list)):
+def enter_match_score(match_list):
+    """    for match in match_list:
         answer = input(f"Voulez-vous entrer les scores pour le Match {match + 1} ? O/N")
         if answer == "O":
-            score_1 = float(input(f"Score de {match_list[match].players[0].last_name} {match_list[match].players[0].first_name} (0 / 0.5 / 1): "))
-            score_2 = float(input(f"Score de {match_list[match].players[1].last_name} {match_list[match].players[1].first_name} (0 / 0.5 / 1): "))
+            score_1 = float(input(f"Score de {match.players[0].last_name} {match.players[0].first_name} (0 / 0.5 / 1): "))
+            score_2 = float(input(f"Score de {match.players[1].last_name} {match.players[1].first_name} (0 / 0.5 / 1): "))
             if score_1 + score_2 == 1.0:
-                match_list[match].score = [score_1, score_2]
+                match.score = [score_1, score_2]
             else:
                 print("Le score est incorrect")"""
     match_list[0].score = [1, 0]
     match_list[1].score = [0.5, 0.5]
     match_list[2].score = [0, 1]
     match_list[3].score = [1, 0]
-    return match_list, tournament_list
+    return match_list

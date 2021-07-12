@@ -83,7 +83,7 @@ Que souhaitez-vous faire ?
 7. Sauvegarder/Charger
 8. Quitter
 """)
-    if int(menu0) in [1, 2, 3, 4, 5, 6, 7, 8]:
+    if int(menu0) in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
         list.append(int(menu0))
     else:
         pass

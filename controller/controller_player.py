@@ -1,14 +1,14 @@
 from model.player import Player
 from datetime import datetime
 def find_player_global(player_last_name, player_first_name, player_list):
-    for i in range(len(player_list)):
-        if player_last_name == player_list[i].last_name and player_first_name == player_list[i].first_name:
+    for player in player_list:
+        if player_last_name == player.last_name and player_first_name == player_list[i].first_name:
             return i
 
 
 def find_player_tournament(player, tournament_list):
-    for i in range(len(tournament_list[-1].players)):
-        if player.last_name == tournament_list[-1].players[i].last_name and player.first_name == tournament_list[-1].players[i].first_name:
+    for player_tournament in tournament_list[-1].players:
+        if player.last_name == player_tournament.last_name and player.first_name == player_tournament.first_name:
             return True
     return False
 
@@ -47,8 +47,8 @@ def add_player(tournament_list, player_list):
             else:
                 add_new_player = "N"
                 """
-        for player in range(len(player_list)):
-            tournament_list[-1].players.append(player_list[player])
+        for player in player_list:
+            tournament_list[-1].players.append(player)
 
     return tournament_list
 

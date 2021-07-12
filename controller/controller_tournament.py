@@ -15,8 +15,8 @@ def create_tournament(tournament_list):
 
 def close_tournament(tournament_list, round_list):
     tournament_list[-1].closed = "Y"
-    for round in range(len(round_list)):
-        tournament_list[-1].rounds.append(round_list[round])
+    for round in round_list:
+        tournament_list[-1].rounds.append(round)
     round_list[:] = []
     return tournament_list, round_list
 

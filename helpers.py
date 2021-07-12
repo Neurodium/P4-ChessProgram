@@ -21,41 +21,36 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
                 print(tournament.rounds)
     elif list == [2]:
         list = menu_tournament_add_player(list, tournament_list)
-        add_player(tournament_list, player_list)
+        tournament_list = add_player(tournament_list, player_list)
         if len(tournament_list[-1].players) == tournament_list[-1].max_players:
             menu_tournament_new_round(round_list, tournament_list, match_list)
-            add_new_round(round_list, tournament_list, match_list)
-            match_first_round(tournament_list, round_list, match_list)
+            round_list = add_new_round(round_list, tournament_list, match_list)
+            match_list = match_first_round(tournament_list, round_list, match_list)
     elif list == [3]:
-        print(player_list[0].tournament_points)
         if len(match_list) != 0:
-            menu_enter_score(list)
-            enter_match_score(match_list, tournament_list)
+            list = menu_enter_score(list)
+            match_list = enter_match_score(match_list)
             if check_match_points(match_list) == True:
                 if len(round_list) < tournament_list[-1].nbtours:
                     menu_close_round(round_list)
-                    close_round(match_list, tournament_list, round_list)
-                    print(player_list[0].tournament_points)
+                    match_list, tournament_list, round_list = close_round(match_list, tournament_list, round_list)
                     menu_tournament_new_round(round_list, tournament_list, match_list)
-                    add_new_round(round_list, tournament_list, match_list)
-                    match_next_round(tournament_list, round_list, match_list)
+                    round_list = add_new_round(round_list, tournament_list, match_list)
+                    match_list = match_next_round(tournament_list, round_list, match_list)
                 else:
                     menu_close_round(round_list)
-                    close_round(match_list, tournament_list, round_list)
+                    match_list, tournament_list, round_list = close_round(match_list, tournament_list, round_list)
         else:
-            menu_all_match_played(list)
+            list = menu_all_match_played(list)
     elif list == [4]:
         choice, list = menu_close_tournament(list, tournament_list, match_list, round_list)
         if choice == "O":
-            close_tournament(tournament_list, round_list)
-            update_players_rank(player_list)
-            print(match_list)
-            for round in range(len(tournament_list[-1].rounds)):
-                print(tournament_list[-1].rounds[round].matchs_round)
-            print(round_list)
-            print(tournament_list[-1].rounds)
+            tournament_list, round_list = close_tournament(tournament_list, round_list)
+            player_list = update_players_rank(player_list)
             for player in range(len(player_list)):
+                print(player_list[player].last_name)
                 print(player_list[player].tournament_points)
+                print(tournament_list[-1].players[player].last_name)
                 print(tournament_list[-1].players[player].tournament_points)
         else:
             pass
