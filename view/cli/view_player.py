@@ -1,22 +1,45 @@
-def show_player_list_name(player_list):
-    player_list = sorted(player_list, key=lambda player: player.last_name)
-    print("Last Name, First Name, Birthdate, Gender, Rank" )
-    for player in range(len(player_list)):
-        print(f"{player_list[player].last_name}, "
-              f"{player_list[player].first_name}, "
-              f"{player_list[player].birthdate}, "
-              f"{player_list[player].gender}, "
-              f"{player_list[player].rank}"
-              )
+import pandas as pd
 
-def show_player_list_rank(player_list):
+
+def show_player_list_name(list, player_list):
+    player_list = sorted(player_list, key=lambda player: player.last_name)
+    player_array = []
+    for player in player_list:
+        player_array.append([player.last_name, player.first_name, player.birthdate, player.gender, player.rank, player.tournament_points])
+    player_df = pd.DataFrame(data=player_array, columns=["Nom de Famille", "Prénom", "Date de Naissance", "Sexe", "Classement", "Points"])
+    print(player_df.to_string(index=False))
+    list.pop()
+    return list
+
+def show_player_list_rank(list, player_list):
     player_list = sorted(player_list, key=lambda player: player.rank)
-    print("Last Name, First Name, Birthdate, Gender, Rank")
-    for player in range(len(player_list)):
-        print(f"{player_list[player].last_name}, "
-              f"{player_list[player].first_name}, "
-              f"{player_list[player].birthdate}, "
-              f"{player_list[player].gender}, "
-              f"{player_list[player].rank}"
-              )
+    player_array = []
+    for player in player_list:
+        player_array.append([player.rank, player.tournament_points, player.last_name, player.first_name, player.birthdate, player.gender])
+    player_df = pd.DataFrame(data=player_array,
+                             columns=["Classement", "Points", "Nom de Famille", "Prénom", "Date de Naissance", "Sexe"])
+    print(player_df.to_string(index=False))
+    list.pop()
+    return list
+
+def show_player_tournament_list_name(list, tournament_list):
+    player_list = sorted(tournament_list[-1].players, key=lambda player: player.last_name)
+    player_array = []
+    for player in player_list:
+        player_array.append([player.last_name, player.first_name, player.birthdate, player.gender, player.rank, player.tournament_points])
+    player_df = pd.DataFrame(data=player_array, columns=["Nom de Famille", "Prénom", "Date de Naissance", "Sexe", "Classement", "Points"])
+    print(player_df.to_string(index=False))
+    list.pop()
+    return list
+
+def show_player_tournament_list_rank(list, tournament_list):
+    player_list = sorted(tournament_list[-1].players, key=lambda player: player.rank)
+    player_array = []
+    for player in player_list:
+        player_array.append([player.rank, player.tournament_points, player.last_name, player.first_name, player.birthdate, player.gender])
+    player_df = pd.DataFrame(data=player_array,
+                             columns=["Classement", "Points", "Nom de Famille", "Prénom", "Date de Naissance", "Sexe"])
+    print(player_df.to_string(index=False))
+    list.pop()
+    return list
 

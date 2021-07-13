@@ -181,3 +181,4 @@ def menu_reports_start(list):
 8. Retour
     """)
     list.append(int(menu6))
+    return list

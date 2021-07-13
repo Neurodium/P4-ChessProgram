@@ -1,5 +1,8 @@
-from view.cli.view_menu import menu_start, menu_tournament_create, menu_tournament_add_player, menu_tournament_new_round, menu_enter_score, menu_close_round, menu_all_match_played, menu_close_tournament, menu_tournament_created
+from view.cli.view_menu import menu_start, menu_tournament_create, menu_tournament_add_player, menu_tournament_new_round, \
+    menu_enter_score, menu_close_round, menu_all_match_played, menu_close_tournament, menu_tournament_created,menu_reports_start
 from view.cli.view_match import show_match_current_round
+from view.cli.view_player import show_player_list_name, show_player_list_rank, show_player_tournament_list_name, show_player_tournament_list_rank
+from view.cli.view_tournament import view_tournaments_all
 from controller.controller_tournament import create_tournament, close_tournament
 from controller.controller_player import add_player, update_players_rank, change_player_rank
 from controller.controller_match import match_first_round, match_next_round, enter_match_score
@@ -48,4 +51,17 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
     elif list == [5]:
         change_player_rank(player_list)
     elif list == [6]:
+        list = menu_reports_start(list)
+    elif list == [6, 1]:
+        list = show_player_list_name(list, player_list)
+    elif list == [6, 2]:
+        list = show_player_list_rank(list, player_list)
+    elif list == [6, 3]:
+        list = show_player_tournament_list_name(list, tournament_list)
+    elif list == [6, 4]:
+        list = show_player_tournament_list_rank(list, tournament_list)
+    elif list == [6, 5]:
+        list = view_tournaments_all(list, tournament_list)
+
+
 
