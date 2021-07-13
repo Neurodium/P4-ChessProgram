@@ -168,3 +168,16 @@ def menu_change_player_rank(list):
 """)
     list.pop()
     return list
+
+def menu_reports_start(list):
+    menu6 = input("""
+1. Afficher tous les joueurs par ordre alphabétique
+2. Afficher tous les joueurs par classement
+3. Afficher tous les joueurs d'un tournoi par ordre alphabétique
+4. Afficher tous les joueurs d'un tournoi par classement
+5. Afficher tous les tournois
+6. Afficher tous les tours d'un tournoi
+7. Afficher tous les matchs d'un tournoi
+8. Retour
+    """)
+    list.append(int(menu6))

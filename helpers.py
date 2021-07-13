@@ -1,4 +1,3 @@
-from view.cli.view_tournament import menu_tournament_back
 from view.cli.view_menu import menu_start, menu_tournament_create, menu_tournament_add_player, menu_tournament_new_round, menu_enter_score, menu_close_round, menu_all_match_played, menu_close_tournament, menu_tournament_created
 from view.cli.view_match import show_match_current_round
 from controller.controller_tournament import create_tournament, close_tournament
@@ -16,9 +15,6 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
                 tournament_list = create_tournament(tournament_list)
             else:
                 menu_tournament_created()
-            print(tournament_list)
-            for tournament in tournament_list:
-                print(tournament.rounds)
     elif list == [2]:
         list = menu_tournament_add_player(list, tournament_list)
         tournament_list = add_player(tournament_list, player_list)
@@ -47,14 +43,9 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
         if choice == "O":
             tournament_list, round_list = close_tournament(tournament_list, round_list)
             player_list = update_players_rank(player_list)
-            for player in range(len(player_list)):
-                print(player_list[player].last_name)
-                print(player_list[player].tournament_points)
-                print(tournament_list[-1].players[player].last_name)
-                print(tournament_list[-1].players[player].tournament_points)
         else:
             pass
     elif list == [5]:
         change_player_rank(player_list)
-    elif list == [1, 4]:
-        menu_tournament_back(list)
+    elif list == [6]:
+
