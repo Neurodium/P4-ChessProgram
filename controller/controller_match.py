@@ -8,7 +8,7 @@ def match_first_round(tournament_list, round_list, match_list):
         players_match = sorted(players_match, key=lambda player: player.rank)
         half_list = int(len(players_match)/2)
         for player in range(half_list):
-            match_list.append(Match((players_match[player], players_match[player + half_list])))
+            match_list.append(Match(f"Match {player+1}", (players_match[player], players_match[player + half_list])))
     else:
         pass
     return match_list, tournament_list
@@ -19,16 +19,20 @@ def match_next_round(tournament_list, round_list, match_list):
         players_match = sorted(players_match, key=lambda player: (player.tournament_points, player.rank), reverse=True)
         if find_player_previous_match(players_match, round_list) == False:
             player = 0
+            nb_match = 1
             while player < len(players_match):
-                match_list.append(Match((players_match[player], players_match[player + 1])))
+                match_list.append(Match(f"Match {nb_match}", (players_match[player], players_match[player + 1])))
                 player += 2
+                nb_match += 1
         else:
-            match_list.append(Match((players_match[0], players_match[2])))
-            match_list.append(Match((players_match[1], players_match[3])))
+            match_list.append(Match("Match 1", (players_match[0], players_match[2])))
+            match_list.append(Match("Match 2", (players_match[1], players_match[3])))
             player = 4
+            nb_match = 3
             while player < len(players_match):
-                match_list.append(Match((players_match[player], players_match[player+1])))
+                match_list.append(Match(f"Match {nb_match}", (players_match[player], players_match[player+1])))
                 player += 2
+                nb_match += 1
     else:
         pass
     return tournament_list, match_list

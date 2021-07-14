@@ -182,3 +182,20 @@ def menu_reports_start(list):
     """)
     list.append(int(menu6))
     return list
+
+def menu_save_load(list):
+    menu7 = input("""
+1. Sauvegarder les données
+2. Charger les données
+3. Retour
+""")
+    list.append(int(menu7))
+    return list
+
+def menu_save(list):
+    print("Sauvegarde des données")
+    list.pop()
+
+def menu_load(list):
+    print("Chargement des données")
+    list.pop()

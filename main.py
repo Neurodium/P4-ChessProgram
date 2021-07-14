@@ -14,8 +14,9 @@ rounds = []
 players = []
 tournament = []
 matchs = []
+players = []
 
-players = [Player("CRETENET", "Julien", "03/05/1983", "M", rank=0, tournament_points=0),
+"""players = [Player("CRETENET", "Julien", "03/05/1983", "M", rank=0, tournament_points=0),
             Player("DE ANDRADE", "Laurie", "03/04/1987", "F", rank=0, tournament_points=0),
             Player("TUIL", "Laurent", "19/11/1973", "M", rank=0, tournament_points=0),
             Player("BRAVARD", "Sophie", "24/06/1977", "F", rank=0, tournament_points=0),
@@ -24,7 +25,7 @@ players = [Player("CRETENET", "Julien", "03/05/1983", "M", rank=0, tournament_po
             Player("JOUVERT", "Nicolas", "08/10/1982", "M", rank=0, tournament_points=0),
             Player("ARGO", "Sandra", "11/11/1991", "F", rank=0, tournament_points=0)
            ]
-
+"""
 
 while menu != [8]:
     menu_navigation(menu, tournament, players, rounds, matchs)

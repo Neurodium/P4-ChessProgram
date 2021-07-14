@@ -1,12 +1,14 @@
 from view.cli.view_menu import menu_start, menu_tournament_create, menu_tournament_add_player, menu_tournament_new_round, \
-    menu_enter_score, menu_close_round, menu_all_match_played, menu_close_tournament, menu_tournament_created,menu_reports_start
+    menu_enter_score, menu_close_round, menu_all_match_played, menu_close_tournament, menu_tournament_created,menu_reports_start, \
+    menu_save_load, menu_save, menu_load
 from view.cli.view_match import show_match_current_round
 from view.cli.view_player import show_player_list_name, show_player_list_rank, show_player_tournament_list_name, show_player_tournament_list_rank
-from view.cli.view_tournament import view_tournaments_all
+from view.cli.view_tournament import view_tournaments_all, view_tournament_all_rounds, view_tournament_all_matchs
 from controller.controller_tournament import create_tournament, close_tournament
 from controller.controller_player import add_player, update_players_rank, change_player_rank
 from controller.controller_match import match_first_round, match_next_round, enter_match_score
 from controller.controller_round import add_new_round, close_round, check_match_points
+from controller.controller_db import save_players, save_tournaments, load_players
 
 def menu_navigation(list, tournament_list, player_list, round_list, match_list):
     if list == []:
@@ -62,6 +64,24 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
         list = show_player_tournament_list_rank(list, tournament_list)
     elif list == [6, 5]:
         list = view_tournaments_all(list, tournament_list)
-
+    elif list == [6, 6]:
+        list = view_tournament_all_rounds(list, tournament_list)
+    elif list == [6, 7]:
+        list = view_tournament_all_matchs(list, tournament_list)
+    elif list == [6, 8]:
+        list.pop()
+        list.pop()
+    elif list == [7]:
+        list = menu_save_load(list)
+    elif list == [7, 1]:
+        list = menu_save(list)
+        save_players(player_list)
+        save_tournaments(tournament_list)
+    elif list == [7, 2]:
+        list = menu_load(list)
+        player_list = load_players(player_list)
+    elif list == [7, 3]:
+        list.pop()
+        list.pop()
 
 
