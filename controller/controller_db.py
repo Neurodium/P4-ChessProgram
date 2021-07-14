@@ -1,5 +1,7 @@
 from tinydb import TinyDB
 from model.player import Player
+import json
+
 db = TinyDB('db.json')
 
 def save_players(player_list):
@@ -49,10 +51,10 @@ def save_tournaments(tournament_list):
                                  'tournament_points': player.tournament_points
                                  })
             for round in tournament.rounds:
-                t_rounds_save.append({'tournament_name': tournament.name,
+                t_rounds_save.append(json.dumps({'tournament_name': tournament.name,
                                     'name': round.name,
-                                    'date_begin': round.date_begin,
-                                    'date_end': round.date_end})
+                                    'date_begin': round.date_begin.isoformat(),
+                                    'date_end': round.date_end.isoformat()}))
                 for match in round.matchs_round:
                         t_matchs_save.append({'tournament_name': tournament.name,
                                             'match_name': match.name,

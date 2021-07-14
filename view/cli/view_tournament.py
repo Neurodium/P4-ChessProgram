@@ -19,7 +19,7 @@ def view_tournament_all_rounds(list, tournament_list):
     for tournament in tournament_list:
         if tournament_name == tournament.name:
             for round in tournament.rounds:
-                round_array.append([round.name, round.date_begin, round.date_end])
+                round_array.append([round.name, round.date_begin.strftime("%d/%m/%Y (%H:%M:%S)"), round.date_end.strftime("%d/%m/%Y (%H:%M:%S)")])
             round_df = pd.DataFrame(data=round_array, columns=["Nom", "Date début", "Date fin"])
             print(round_df.to_string(index=False))
         else:

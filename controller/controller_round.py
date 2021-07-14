@@ -1,5 +1,5 @@
 from model.round import Round
-from datetime import datetime
+import datetime
 
 """Round initialization"""
 def add_new_round(round_list, tournament_list, match_list):
@@ -9,8 +9,7 @@ def add_new_round(round_list, tournament_list, match_list):
         pass
     elif len(match_list) == 0:
         nb_round = len(round_list)
-        date = datetime.now()
-        round_list.append(Round(f"Round {nb_round + 1}", date.strftime("%d/%m/%Y (%H:%M:%S)"), []))
+        round_list.append(Round(f"Round {nb_round + 1}", datetime.datetime.now(), []))
         return round_list
 
 def check_match_points(match_list):
@@ -30,8 +29,7 @@ def close_round(match_list, tournament_list, round_list):
                 player.tournament_points += match.score[1]
         round_list[-1].matchs_round.append(match)
     match_list[:] = []
-    date = datetime.now()
-    round_list[-1].date_end = date.strftime("%d/%m/%Y (%H:%M:%S)")
+    round_list[-1].date_end = datetime.datetime.now()
     return match_list, tournament_list, round_list
 
 
