@@ -8,7 +8,7 @@ from controller.controller_tournament import create_tournament, close_tournament
 from controller.controller_player import add_player, update_players_rank, change_player_rank
 from controller.controller_match import match_first_round, match_next_round, enter_match_score
 from controller.controller_round import add_new_round, close_round, check_match_points
-from controller.controller_db import save_players, save_tournaments, load_players
+from controller.controller_db import save_players, save_tournaments, load_players, load_tournaments, load_players_tournaments, load_rounds_tournaments, load_matchs_tournaments
 
 def menu_navigation(list, tournament_list, player_list, round_list, match_list):
     if list == []:
@@ -51,7 +51,8 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
         else:
             pass
     elif list == [5]:
-        change_player_rank(player_list)
+        list, player_list = change_player_rank(list, player_list)
+        player_list = update_players_rank(player_list)
     elif list == [6]:
         list = menu_reports_start(list)
     elif list == [6, 1]:
@@ -80,6 +81,10 @@ def menu_navigation(list, tournament_list, player_list, round_list, match_list):
     elif list == [7, 2]:
         list = menu_load(list)
         player_list = load_players(player_list)
+        tournament_list = load_tournaments(tournament_list)
+        tournament_list = load_players_tournaments(tournament_list)
+        tournament_list = load_rounds_tournaments(tournament_list)
+        tournament_list = load_matchs_tournaments(tournament_list)
     elif list == [7, 3]:
         list.pop()
         list.pop()

@@ -37,9 +37,9 @@ def view_tournament_all_matchs(list, tournament_list):
         if tournament_name == tournament.name:
             for round in tournament.rounds:
                 for match in round.matchs_round:
-                    match_array.append([match.players[0].last_name, match.players[0].first_name, "contre", match.players[1].last_name, match.players[1].first_name, match.score[0], "-", match.score[1]])
+                    match_array.append([round.name, match.name, match.players[0].last_name, match.players[0].first_name, "contre", match.players[1].last_name, match.players[1].first_name, match.score[0], "-", match.score[1]])
             match_df = pd.DataFrame(data=match_array,
-                                columns=["Joueur 1", "", "", "Joueur 2", "", "Score 1", "-", "Score 2"])
+                                columns=["Round", "Match", "Joueur 1", "", "", "Joueur 2", "", "Score 1", "-", "Score 2"])
             print(match_df.to_string(index=False))
         else:
             print("Ce tournoi n'existe pas")

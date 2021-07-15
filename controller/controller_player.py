@@ -2,8 +2,8 @@ from model.player import Player
 from datetime import datetime
 def find_player_global(player_last_name, player_first_name, player_list):
     for player in player_list:
-        if player_last_name == player.last_name and player_first_name == player_list[i].first_name:
-            return i
+        if player_last_name == player.last_name and player_first_name == player.first_name:
+            return player
 
 
 def find_player_tournament(player, tournament_list):
@@ -58,16 +58,17 @@ def update_players_rank(player_list):
         player_list[player].rank = player + 1
     return player_list
 
-def change_player_rank(player_list):
+def change_player_rank(list, player_list):
     player_last_name = input("Quel est le nom du joueur ou de la joueuse ?")
     player_first_name = input("Quel est le prénom du joueur ou de la joueuse ?")
     player = find_player_global(player_last_name, player_first_name, player_list)
-    print(f"Le classement de {player_list[player].last_name} {player_list[player].first_name} est {player_list[player].rank} et a {player_list[player].tournament_points} points")
+    print(f"Le classement de {player.last_name} {player.first_name} est {player.rank} et a {player.tournament_points} points")
     choice = input("Voulez_vous changez ses informations ? O/N")
     if choice == "O":
-        player_list[player].rank = int(input("Quel est son nouveau classement ?"))
-        player_list[player].tournament_points = float(input("Quel est son nouveau nombre de points ?"))
+        player.rank = int(input("Quel est son nouveau classement ?"))
+        player.tournament_points = float(input("Quel est son nouveau nombre de points ?"))
     else:
         pass
-    return player_list
+    list.pop()
+    return list, player_list
 
