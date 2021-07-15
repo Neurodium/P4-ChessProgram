@@ -2,6 +2,8 @@ from model.match import Match
 from controller.controller_player import find_player_previous_match
 
 """Attribution des matchs"""
+
+
 def match_first_round(tournament_list, round_list, match_list):
     if len(match_list) == 0 and len(round_list) == 1:
         players_match = tournament_list[-1].players
@@ -16,13 +18,16 @@ def match_first_round(tournament_list, round_list, match_list):
         pass
     return match_list, tournament_list
 
+
 def match_next_round(tournament_list, round_list, match_list):
     if len(match_list) == 0:
         players_match = tournament_list[-1].players
         players_match = sorted(players_match,
-                               key=lambda player: (player.tournament_points, player.rank),
+                               key=lambda player:
+                               (player.tournament_points,
+                                player.rank),
                                reverse=True)
-        if find_player_previous_match(players_match, round_list) == False:
+        if find_player_previous_match(players_match, round_list) is False:
             player = 0
             nb_match = 1
             while player < len(players_match):
@@ -50,18 +55,21 @@ def match_next_round(tournament_list, round_list, match_list):
         pass
     return tournament_list, match_list
 
+
 def enter_match_score(match_list):
-    """    for match in match_list:
-        answer = input(f"Voulez-vous entrer les scores pour le Match {match + 1} ? O/N")
+    for match in match_list:
+        answer = input(
+            f"Voulez-vous entrer les scores pour "
+            f"le Match {match + 1} ? O/N")
         if answer == "O":
-            score_1 = float(input(f"Score de {match.players[0].last_name} {match.players[0].first_name} (0 / 0.5 / 1): "))
-            score_2 = float(input(f"Score de {match.players[1].last_name} {match.players[1].first_name} (0 / 0.5 / 1): "))
+            score_1 = float(input(
+                f"Score de {match.players[0].last_name} "
+                f"{match.players[0].first_name} (0 / 0.5 / 1): "))
+            score_2 = float(input(
+                f"Score de {match.players[1].last_name} "
+                f"{match.players[1].first_name} (0 / 0.5 / 1): "))
             if score_1 + score_2 == 1.0:
                 match.score = [score_1, score_2]
             else:
-                print("Le score est incorrect")"""
-    match_list[0].score = [1, 0]
-    match_list[1].score = [0.5, 0.5]
-    match_list[2].score = [0, 1]
-    match_list[3].score = [1, 0]
+                print("Le score est incorrect")
     return match_list

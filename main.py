@@ -1,7 +1,5 @@
-from view.cli.view_menu import show_logo
 from helpers import menu_navigation
 
-show_logo()
 
 menu = []
 rounds = []

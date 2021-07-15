@@ -1,23 +1,35 @@
 from model.player import Player
-from datetime import datetime
+
+
 def find_player_global(player_last_name, player_first_name, player_list):
     for player in player_list:
-        if player_last_name == player.last_name and player_first_name == player.first_name:
+        if player_last_name == \
+                player.last_name \
+                and player_first_name == \
+                player.first_name:
             return player
 
 
 def find_player_tournament(player, tournament_list):
     for player_tournament in tournament_list[-1].players:
-        if player.last_name == player_tournament.last_name and player.first_name == player_tournament.first_name:
+        if player.last_name == \
+                player_tournament.last_name \
+                and player.first_name == \
+                player_tournament.first_name:
             return True
     return False
+
 
 def find_player_previous_match(players_match, round_list):
     for i in range(len(round_list)-1):
         for j in range(len(round_list[i].matchs_round)):
-            if round_list[i].matchs_round[j] == (players_match[0], players_match[1]) or round_list[i].matchs_round[j] == (players_match[1], players_match[0]):
+            if round_list[i].matchs_round[j] == \
+                    (players_match[0], players_match[1]) \
+                    or round_list[i].matchs_round[j] == \
+                    (players_match[1], players_match[0]):
                 return True
     return False
+
 
 def add_player(tournament_list, player_list):
     if len(tournament_list) == 0:
@@ -26,31 +38,38 @@ def add_player(tournament_list, player_list):
         print("Le tournoi est complet.")
         pass
     else:
-        """add_new_player = "O"
-        while add_new_player == "O" and len(tournament_list[-1].players) < tournament_list[-1].max_players:
+        add_new_player = "O"
+        while add_new_player == "O" \
+                and len(tournament_list[-1].players) < \
+                tournament_list[-1].max_players:
             last_name = input("Nom: ")
             first_name = input("Prénom: ")
             date = input("Date de naissance (JJ/MM/AAAA): ")
             gender = input("Genre (M/F): ")
             player = Player(last_name, first_name, date, gender)
-            if find_player_tournament(player, tournament_list) == False:
+            if find_player_tournament(player, tournament_list) is False:
                 tournament_list[-1].players.append(player)
-                if find_player_global(player, player_list) == False:
+                if find_player_global(player, player_list) is False:
                     player_list.append(player)
                 else:
                     pass
             else:
-                print(f"Le joueur ou la joueuse est déjà dans le tournoi {tournament_list[-1].name}")
+                print(f"Le joueur ou la joueuse est déjà "
+                      f"dans le tournoi {tournament_list[-1].name}")
                 pass
-            if len(tournament_list[-1].players) < tournament_list[-1].max_players:
-                add_new_player = input("Voulez-vous ajouter un autre joueur ou une autre joueuse ? O/N")
+            if len(tournament_list[-1].players) < \
+                    tournament_list[-1].max_players:
+                add_new_player = input(
+                    "Voulez-vous ajouter un autre joueur "
+                    "ou une autre joueuse ? O/N")
             else:
                 add_new_player = "N"
-                """
+
         for player in player_list:
             tournament_list[-1].players.append(player)
 
     return tournament_list
+
 
 def update_players_rank(player_list):
     player_list = sorted(player_list,
@@ -60,9 +79,12 @@ def update_players_rank(player_list):
         player_list[player].rank = player + 1
     return player_list
 
+
 def change_player_rank(list, player_list):
-    player_last_name = input("Quel est le nom du joueur ou de la joueuse ?")
-    player_first_name = input("Quel est le prénom du joueur ou de la joueuse ?")
+    player_last_name = input(
+        "Quel est le nom du joueur ou de la joueuse ?")
+    player_first_name = input(
+        "Quel est le prénom du joueur ou de la joueuse ?")
     player = find_player_global(player_last_name,
                                 player_first_name,
                                 player_list)
@@ -77,4 +99,3 @@ def change_player_rank(list, player_list):
         pass
     list.pop()
     return list, player_list
-

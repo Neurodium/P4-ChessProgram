@@ -1,25 +1,5 @@
 from view.cli.view_match import show_match_current_round
 
-"""Chess drawing launch"""
-def show_logo():
-    print("""                                    =||=
-                                 o   |\ ,'`. /||\ ,'`. /|    o
-         _   _   _   |\__      /\^/\ | `'`'`' || `'`'`' |  /\^/\   |\__     _   _   _
-        | |_| |_| | /   o\__  |  /  ) \      /  \      /  |  /  ) /   o\__ | |_| |_| |
-         \       / |    ___=' | /  /   |    |    |    |   | /  / |    ___=' \       /
-          |     |  |    \      Y  /    |    |    |    |    Y  /  |    \      |     |
-          |     |   \    \     |  |    |    |    |    |    |  |   \    \     |     |
-          |     |    >    \    |  |    |    |    |    |    |  |    >    \    |     |
-         /       \  /      \  /    \  /      \  /      \  /    \  /      \  /       |
-        |_________||________||______||________||________||______||________||_________|
-            __         __       __       __        __       __       __         __
-           (  )       (  )     (  )     (  )      (  )     (  )     (  )       (  )
-            ><         ><       ><       ><        ><       ><       ><         ><
-           |  |       |  |     |  |     |  |      |  |     |  |     |  |       |  |
-          /    \     /    \   /    \   /    \    /    \   /    \   /    \     /    |
-         |______|   |______| |______| |______|  |______| |______| |______|   |______|
-        
-                            CHESS TOURNAMENT V1.0""")
 
 def menu_input():
     try:
@@ -30,9 +10,11 @@ def menu_input():
 
 
 """Start Menu"""
+
+
 def menu_start(list, tournament_list, round_list, match_list):
     if len(tournament_list) == 0 or tournament_list[-1].closed == "Y":
-        menu0 = input("""        
+        menu0 = input("""
 Que souhaitez-vous faire ?
 1. Créer un tournoi
 2. Ajouter des joueurs au tournoi
@@ -50,7 +32,7 @@ Que souhaitez-vous faire ?
 
 Que souhaitez-vous faire ?
 1. Créer un tournoi
-2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players}) 
+2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players})
 3. Entrer les scores
 4. Clôturer le tournoi
 5. Changer le classement d'un joueur
@@ -65,7 +47,7 @@ Que souhaitez-vous faire ?
 
 Que souhaitez-vous faire ?
 1. Créer un tournoi
-2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players}) 
+2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players})
 3. Entrer les scores
 4. Clôturer le tournoi
 5. Changer le classement d'un joueur
@@ -77,12 +59,12 @@ Que souhaitez-vous faire ?
         print(f"""
 ----- Tournoi en cours: {tournament_list[-1].name}
 ----- {round_list[-1].name} en cours
------ Matchs en cours:""" )
+----- Matchs en cours:""")
         show_match_current_round(match_list)
         menu0 = input(f"""
 Que souhaitez-vous faire ?
 1. Créer un tournoi
-2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players}) 
+2. Ajouter {tournament_list[-1].max_players - len(tournament_list[-1].players)} joueurs au tournoi ({len(tournament_list[-1].players)} / {tournament_list[-1].max_players})
 3. Entrer les scores
 4. Clôturer le tournoi
 5. Changer le classement d'un joueur
@@ -96,7 +78,10 @@ Que souhaitez-vous faire ?
         pass
     return list
 
+
 """Menu new tournament"""
+
+
 def menu_tournament_create(list):
     choice = input("""
 -------- 1. CREATION TOURNOI  -------
@@ -106,24 +91,34 @@ Voulez-vous créer un tournoi ? O/N
     list.pop()
     return list, choice
 
+
 """Menu tournament already created"""
+
+
 def menu_tournament_created():
-    print("Il y a déjà un tournoi en cours, vous ne pouvez en créer un nouveau qu'après l'avoir clôturé")
+    print("Il y a déjà un tournoi en cours, "
+          "vous ne pouvez en créer un nouveau qu'après l'avoir clôturé")
+
 
 """Menu add player to tournament"""
+
+
 def menu_tournament_add_player(list, tournament_list):
     if len(tournament_list) == 0:
         print("Veuillez créer un nouveau tournoi")
     else:
         print(f"""
 -------- 2.1 AJOUTER JOUEURS AU TOURNOI -------
-Veuillez entrer les informations du joueur à ajouter au tournoi {tournament_list[-1].name}: 
+Veuillez entrer les informations du joueur à ajouter au tournoi {tournament_list[-1].name}:
 
 """)
     list.pop()
     return list
 
+
 """Menu new round"""
+
+
 def menu_tournament_new_round(round_list, tournament_list, match_list):
     if len(tournament_list) == 0:
         print("Veuillez créer un nouveau tournoi")
@@ -138,12 +133,15 @@ Les paires du Round {(len(round_list)) + 1} sont créées""")
 
 
 """Menu entrer score"""
+
+
 def menu_enter_score(list):
-    print(f"""
+    print("""
 -------- 3.1 ENTRER LES SCORES -------
 """)
     list.pop()
     return list
+
 
 def menu_close_round(round_list):
     print(f"""
@@ -157,6 +155,7 @@ def menu_all_match_played(list):
     list.pop()
     return list
 
+
 def menu_close_tournament(list, tournament_list, match_list, round_list):
     print("""
 -------- 4. CLOTURER LE TOURNOI -------
@@ -169,12 +168,14 @@ def menu_close_tournament(list, tournament_list, match_list, round_list):
     list.pop()
     return choice, list
 
+
 def menu_change_player_rank(list):
     print("""
--------- 5. CHANGER CLASSEMENT D'UN JOUEUR -------    
+-------- 5. CHANGER CLASSEMENT D'UN JOUEUR -------
 """)
     list.pop()
     return list
+
 
 def menu_reports_start(list):
     menu6 = input("""
@@ -190,6 +191,7 @@ def menu_reports_start(list):
     list.append(int(menu6))
     return list
 
+
 def menu_save_load(list):
     menu7 = input("""
 1. Sauvegarder les données
@@ -199,9 +201,11 @@ def menu_save_load(list):
     list.append(int(menu7))
     return list
 
+
 def menu_save(list):
     print("Sauvegarde des données")
     list.pop()
+
 
 def menu_load(list):
     print("Chargement des données")
