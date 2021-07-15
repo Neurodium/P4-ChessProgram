@@ -9,7 +9,9 @@ def add_new_round(round_list, tournament_list, match_list):
         pass
     elif len(match_list) == 0:
         nb_round = len(round_list)
-        round_list.append(Round(f"Round {nb_round + 1}", datetime.datetime.now(), []))
+        round_list.append(Round(f"Round {nb_round + 1}",
+                                datetime.datetime.now(),
+                                []))
         return round_list
 
 def check_match_points(match_list):
@@ -23,9 +25,11 @@ def check_match_points(match_list):
 def close_round(match_list, tournament_list, round_list):
     for match in match_list:
         for player in tournament_list[-1].players:
-            if match.players[0].last_name == player.last_name and match.players[0].first_name == player.first_name:
+            if match.players[0].last_name == player.last_name \
+                    and match.players[0].first_name == player.first_name:
                 player.tournament_points += match.score[0]
-            elif match.players[1].last_name == player.last_name and match.players[1].first_name == player.first_name:
+            elif match.players[1].last_name == player.last_name \
+                    and match.players[1].first_name == player.first_name:
                 player.tournament_points += match.score[1]
         round_list[-1].matchs_round.append(match)
     match_list[:] = []

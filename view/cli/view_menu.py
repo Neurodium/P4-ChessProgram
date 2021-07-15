@@ -21,6 +21,13 @@ def show_logo():
         
                             CHESS TOURNAMENT V1.0""")
 
+def menu_input():
+    try:
+        choice = int(input("Quel est votre choix ?"))
+        return choice
+    except:
+        print("Veuillez entre un chiffre")
+
 
 """Start Menu"""
 def menu_start(list, tournament_list, round_list, match_list):

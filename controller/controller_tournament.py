@@ -5,10 +5,17 @@ from model.player import Player
 def create_tournament(tournament_list):
     name = input("Quel est le nom de votre tournoi ?")
     place = input("Où se déroulera le tournoi ?")
-    date = datetime.strptime(input("Quand se déroulera le tournoi ?"), '%d/%m/%Y')
+    date = datetime.strptime(input(
+        "Quand se déroulera le tournoi ?"), '%d/%m/%Y')
     time_control = input("Quelle est la méthode de contrôle du temps: Bullet, Blitz ou Coup Rapide ?")
     description = input("Avez-vous des commentaires pour le tournoi ?")
-    obj_tournament = Tournament(name, place, date, time_control, description, players = [], rounds = [])
+    obj_tournament = Tournament(name,
+                                place,
+                                date,
+                                time_control,
+                                description,
+                                players = [],
+                                rounds = [])
     tournament_list.append(obj_tournament)
     return tournament_list
 

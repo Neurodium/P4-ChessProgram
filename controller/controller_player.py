@@ -53,7 +53,9 @@ def add_player(tournament_list, player_list):
     return tournament_list
 
 def update_players_rank(player_list):
-    player_list = sorted(player_list, key=lambda player: player.tournament_points, reverse=True)
+    player_list = sorted(player_list,
+                         key=lambda player: player.tournament_points,
+                         reverse=True)
     for player in range(len(player_list)):
         player_list[player].rank = player + 1
     return player_list
@@ -61,12 +63,16 @@ def update_players_rank(player_list):
 def change_player_rank(list, player_list):
     player_last_name = input("Quel est le nom du joueur ou de la joueuse ?")
     player_first_name = input("Quel est le prénom du joueur ou de la joueuse ?")
-    player = find_player_global(player_last_name, player_first_name, player_list)
-    print(f"Le classement de {player.last_name} {player.first_name} est {player.rank} et a {player.tournament_points} points")
+    player = find_player_global(player_last_name,
+                                player_first_name,
+                                player_list)
+    print(f"Le classement de {player.last_name} {player.first_name} "
+          f"est {player.rank} et a {player.tournament_points} points")
     choice = input("Voulez_vous changez ses informations ? O/N")
     if choice == "O":
         player.rank = int(input("Quel est son nouveau classement ?"))
-        player.tournament_points = float(input("Quel est son nouveau nombre de points ?"))
+        player.tournament_points = float(
+            input("Quel est son nouveau nombre de points ?"))
     else:
         pass
     list.pop()
