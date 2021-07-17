@@ -38,18 +38,26 @@ def add_player(tournament_list, player_list):
         print("Le tournoi est complet.")
         pass
     else:
-        add_new_player = "O"
+        add_new_player = (input(
+            "Voulez-vous ajouter un joueur O/N ?")).capitalize()
+        while add_new_player not in ["O", "N"]:
+            add_new_player = (input("Entrer O ou N")).capitalize()
         while add_new_player == "O" \
                 and len(tournament_list[-1].players) < \
                 tournament_list[-1].max_players:
-            last_name = input("Nom: ")
-            first_name = input("Prénom: ")
+            last_name = (input("Nom: ")).upper()
+            first_name = (input("Prénom: ")).capitalize()
             date = input("Date de naissance (JJ/MM/AAAA): ")
-            gender = input("Genre (M/F): ")
+            gender = (input("Genre (M/F): ")).capitalize()
+            while gender not in ["M", "F"]:
+                print("Veuillez choisir entre M et F")
+                gender = (input())
             player = Player(last_name, first_name, date, gender)
             if find_player_tournament(player, tournament_list) is False:
                 tournament_list[-1].players.append(player)
-                if find_player_global(player, player_list) is False:
+                if find_player_global(last_name,
+                                      first_name,
+                                      player_list) is False:
                     player_list.append(player)
                 else:
                     pass
@@ -59,9 +67,9 @@ def add_player(tournament_list, player_list):
                 pass
             if len(tournament_list[-1].players) < \
                     tournament_list[-1].max_players:
-                add_new_player = input(
+                add_new_player = (input(
                     "Voulez-vous ajouter un autre joueur "
-                    "ou une autre joueuse ? O/N")
+                    "ou une autre joueuse ? O/N")).capitalize()
             else:
                 add_new_player = "N"
 
@@ -77,25 +85,34 @@ def update_players_rank(player_list):
                          reverse=True)
     for player in range(len(player_list)):
         player_list[player].rank = player + 1
-    return player_list
 
 
-def change_player_rank(list, player_list):
-    player_last_name = input(
-        "Quel est le nom du joueur ou de la joueuse ?")
-    player_first_name = input(
-        "Quel est le prénom du joueur ou de la joueuse ?")
+def change_player_rank(menu_list, player_list):
+    player_last_name = (input(
+        "Quel est le nom du joueur ou de la joueuse ?")).upper()
+    player_first_name = (input(
+        "Quel est le prénom du joueur ou de la joueuse ?")).capitalize()
     player = find_player_global(player_last_name,
                                 player_first_name,
                                 player_list)
     print(f"Le classement de {player.last_name} {player.first_name} "
           f"est {player.rank} et a {player.tournament_points} points")
-    choice = input("Voulez_vous changez ses informations ? O/N")
+    choice = (input("Voulez_vous changez ses informations ? O/N")).capitalize()
     if choice == "O":
-        player.rank = int(input("Quel est son nouveau classement ?"))
-        player.tournament_points = float(
-            input("Quel est son nouveau nombre de points ?"))
+        while True:
+            try:
+                player.rank = int(input("Quel est son nouveau classement ?"))
+                break
+            except ValueError:
+                print("Veuillez choisir son nouveau classement")
+        while True:
+            try:
+                player.tournament_points = float(
+                    input("Quel est son nouveau nombre de points ?"))
+                break
+            except ValueError:
+                print("Veuillez choisir un nombre de points")
     else:
         pass
-    list.pop()
-    return list, player_list
+    menu_list.pop()
+    return menu_list, player_list

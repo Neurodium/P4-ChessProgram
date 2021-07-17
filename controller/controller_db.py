@@ -116,7 +116,6 @@ def load_players(player_list):
                                   player['rank'],
                                   player['tournament_points']))
     print("Données chargées")
-    return player_list
 
 
 def load_tournaments(tournament_list):
@@ -135,7 +134,6 @@ def load_tournaments(tournament_list):
                        tournament['nbtours'],
                        tournament['max_players'],
                        tournament['closed']))
-    return tournament_list
 
 
 def load_players_tournaments(tournament_list):
@@ -151,7 +149,6 @@ def load_players_tournaments(tournament_list):
                                                  player['gender'],
                                                  player['rank'],
                                                  player['tournament_points']))
-    return tournament_list
 
 
 def load_rounds_tournaments(tournament_list):
@@ -166,7 +163,6 @@ def load_rounds_tournaments(tournament_list):
                           dateutil.parser.isoparse(round['date_begin']),
                           [],
                           dateutil.parser.isoparse(round['date_end'])))
-    return tournament_list
 
 
 def load_matchs_tournaments(tournament_list):
@@ -193,4 +189,3 @@ def load_matchs_tournaments(tournament_list):
                                       match['tournament_points_player_2'])],
                               [match['score_player_1'],
                                match['score_player_2']]))
-    return tournament_list

@@ -4,7 +4,7 @@ from view.cli.view_menu import menu_start, \
     menu_close_round, menu_all_match_played, \
     menu_close_tournament, menu_tournament_created,\
     menu_reports_start, menu_save_load, \
-    menu_save, menu_load
+    menu_save, menu_load, menu_input
 from view.cli.view_player import show_player_list_name, \
     show_player_list_rank, show_player_tournament_list_name, \
     show_player_tournament_list_rank
@@ -24,19 +24,25 @@ from controller.controller_db import save_players, \
     load_rounds_tournaments, load_matchs_tournaments
 
 
-def menu_navigation(list, tournament_list, player_list,
+# manage which page will be displayed
+def menu_navigation(menu_list, tournament_list, player_list,
                     round_list, match_list):
-    if list == []:
-        list = menu_start(list, tournament_list, round_list, match_list)
-    elif list == [1]:
-        list, choice = menu_tournament_create(list)
+    if menu_list is []:
+        menu_start(tournament_list, round_list, match_list)
+        choice = menu_input()
+        if choice in [1, 2, 3, 4, 5, 6, 7, 8]:
+            menu_list.append(choice)
+        else:
+            pass
+    elif menu_list is [1]:
+        menu_list, choice = menu_tournament_create(menu_list)
         if choice == "O":
             if len(tournament_list) == 0 or tournament_list[-1].closed == "Y":
-                tournament_list = create_tournament(tournament_list)
+                create_tournament(tournament_list)
             else:
                 menu_tournament_created()
-    elif list == [2]:
-        list = menu_tournament_add_player(list, tournament_list)
+    elif menu_list == [2]:
+        menu_tournament_add_player(menu_list, tournament_list)
         tournament_list = add_player(tournament_list, player_list)
         if len(tournament_list[-1].players) == tournament_list[-1].max_players:
             menu_tournament_new_round(round_list,
@@ -45,12 +51,12 @@ def menu_navigation(list, tournament_list, player_list,
             round_list = add_new_round(round_list,
                                        tournament_list,
                                        match_list)
-            match_list = match_first_round(tournament_list,
-                                           round_list,
-                                           match_list)
-    elif list == [3]:
+            match_first_round(tournament_list,
+                              round_list,
+                              match_list)
+    elif menu_list == [3]:
         if len(match_list) != 0:
-            list = menu_enter_score(list)
+            menu_enter_score(menu_list)
             match_list = enter_match_score(match_list)
             if check_match_points(match_list) is True:
                 if len(round_list) < tournament_list[-1].nbtours:
@@ -65,64 +71,62 @@ def menu_navigation(list, tournament_list, player_list,
                     round_list = add_new_round(round_list,
                                                tournament_list,
                                                match_list)
-                    match_list = match_next_round(tournament_list,
-                                                  round_list,
-                                                  match_list)
+                    match_next_round(tournament_list,
+                                     round_list,
+                                     match_list)
                 else:
                     menu_close_round(round_list)
-                    match_list, tournament_list, round_list = close_round(
-                        match_list,
-                        tournament_list,
-                        round_list)
+                    close_round(match_list,
+                                tournament_list,
+                                round_list)
         else:
-            list = menu_all_match_played(list)
-    elif list == [4]:
-        choice, list = menu_close_tournament(list,
-                                             tournament_list,
-                                             match_list,
-                                             round_list)
+            menu_all_match_played(menu_list)
+    elif menu_list == [4]:
+        choice, menu_list = menu_close_tournament(menu_list,
+                                                  tournament_list,
+                                                  match_list,
+                                                  round_list)
         if choice == "O":
-            tournament_list, round_list = close_tournament(
-                tournament_list,
-                round_list)
-            player_list = update_players_rank(player_list)
+            close_tournament(tournament_list,
+                             round_list)
+            update_players_rank(player_list)
         else:
             pass
-    elif list == [5]:
-        list, player_list = change_player_rank(list, player_list)
-        player_list = update_players_rank(player_list)
-    elif list == [6]:
-        list = menu_reports_start(list)
-    elif list == [6, 1]:
-        list = show_player_list_name(list, player_list)
-    elif list == [6, 2]:
-        list = show_player_list_rank(list, player_list)
-    elif list == [6, 3]:
-        list = show_player_tournament_list_name(list, tournament_list)
-    elif list == [6, 4]:
-        list = show_player_tournament_list_rank(list, tournament_list)
-    elif list == [6, 5]:
-        list = view_tournaments_all(list, tournament_list)
-    elif list == [6, 6]:
-        list = view_tournament_all_rounds(list, tournament_list)
-    elif list == [6, 7]:
-        list = view_tournament_all_matchs(list, tournament_list)
-    elif list == [6, 8]:
-        list.pop()
-        list.pop()
-    elif list == [7]:
-        list = menu_save_load(list)
-    elif list == [7, 1]:
-        list = menu_save(list)
+    elif menu_list == [5]:
+        menu_list, player_list = change_player_rank(menu_list, player_list)
+        update_players_rank(player_list)
+    elif menu_list == [6]:
+        menu_reports_start(menu_list)
+    elif menu_list == [6, 1]:
+        show_player_list_name(menu_list, player_list)
+    elif menu_list == [6, 2]:
+        show_player_list_rank(menu_list, player_list)
+    elif menu_list == [6, 3]:
+        show_player_tournament_list_name(menu_list, tournament_list)
+    elif menu_list == [6, 4]:
+        show_player_tournament_list_rank(menu_list, tournament_list)
+    elif menu_list == [6, 5]:
+        view_tournaments_all(menu_list, tournament_list)
+    elif menu_list == [6, 6]:
+        view_tournament_all_rounds(menu_list, tournament_list)
+    elif menu_list == [6, 7]:
+        view_tournament_all_matchs(menu_list, tournament_list)
+    elif menu_list == [6, 8]:
+        menu_list.pop()
+        menu_list.pop()
+    elif menu_list == [7]:
+        menu_save_load(menu_list)
+    elif menu_list == [7, 1]:
+        menu_save(menu_list)
         save_players(player_list)
         save_tournaments(tournament_list)
-    elif list == [7, 2]:
-        list = menu_load(list)
-        player_list = load_players(player_list)
-        tournament_list = load_tournaments(tournament_list)
-        tournament_list = load_players_tournaments(tournament_list)
-        tournament_list = load_rounds_tournaments(tournament_list)
-        tournament_list = load_matchs_tournaments(tournament_list)
-    elif list == [7, 3]:
-        list.pop()
-        list.pop()
+    elif menu_list == [7, 2]:
+        menu_load(menu_list)
+        load_players(player_list)
+        load_tournaments(tournament_list)
+        load_players_tournaments(tournament_list)
+        load_rounds_tournaments(tournament_list)
+        load_matchs_tournaments(tournament_list)
+    elif menu_list == [7, 3]:
+        menu_list.pop()
+        menu_list.pop()

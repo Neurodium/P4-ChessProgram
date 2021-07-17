@@ -39,4 +39,3 @@ def close_round(match_list, tournament_list, round_list):
         round_list[-1].matchs_round.append(match)
     match_list[:] = []
     round_list[-1].date_end = datetime.datetime.now()
-    return match_list, tournament_list, round_list

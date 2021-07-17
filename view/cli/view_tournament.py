@@ -3,7 +3,7 @@ import pandas as pd
 """View all tournaments"""
 
 
-def view_tournaments_all(list, tournament_list):
+def view_tournaments_all(menu_list, tournament_list):
     tournament_list = sorted(tournament_list,
                              key=lambda tournament: tournament.name)
     tournament_array = []
@@ -22,11 +22,10 @@ def view_tournaments_all(list, tournament_list):
                                           "Nb Joueurs",
                                           "Contrôle du Temps"])
     print(tournament_df.to_string(index=False))
-    list.pop()
-    return list
+    menu_list.pop()
 
 
-def view_tournament_all_rounds(list, tournament_list):
+def view_tournament_all_rounds(menu_list, tournament_list):
     for tournament in tournament_list:
         print(f"Tournoi: {tournament.name}")
     tournament_name = input(
@@ -46,12 +45,10 @@ def view_tournament_all_rounds(list, tournament_list):
             print(round_df.to_string(index=False))
         else:
             print("Ce tournoi n'existe pas")
-
-    list.pop()
-    return list
+    menu_list.pop()
 
 
-def view_tournament_all_matchs(list, tournament_list):
+def view_tournament_all_matchs(menu_list, tournament_list):
     for tournament in tournament_list:
         print(f"Tournoi: {tournament.name}")
     tournament_name = input(
@@ -86,5 +83,4 @@ def view_tournament_all_matchs(list, tournament_list):
         else:
             print("Ce tournoi n'existe pas")
 
-    list.pop()
-    return list
+    menu_list.pop()
