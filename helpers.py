@@ -27,14 +27,14 @@ from controller.controller_db import save_players, \
 # manage which page will be displayed
 def menu_navigation(menu_list, tournament_list, player_list,
                     round_list, match_list):
-    if menu_list is []:
+    if menu_list == []:
         menu_start(tournament_list, round_list, match_list)
         choice = menu_input()
         if choice in [1, 2, 3, 4, 5, 6, 7, 8]:
             menu_list.append(choice)
         else:
             pass
-    elif menu_list is [1]:
+    elif menu_list == [1]:
         menu_list, choice = menu_tournament_create(menu_list)
         if choice == "O":
             if len(tournament_list) == 0 or tournament_list[-1].closed == "Y":

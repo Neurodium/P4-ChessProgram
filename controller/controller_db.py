@@ -8,7 +8,7 @@ import dateutil.parser
 
 db = TinyDB('db.json')
 
-
+# save players data into 'players' table
 def save_players(player_list):
     players_table = db.table('players')
     players_table.truncate()
@@ -24,6 +24,7 @@ def save_players(player_list):
     players_table.insert_multiple(players_save)
 
 
+# save tournament data into tables 'tournaments', 't_players', 't_rounds', 't_match'
 def save_tournaments(tournament_list):
     tournaments_table = db.table('tournaments')
     t_players_table = db.table('t_players')
@@ -37,6 +38,7 @@ def save_tournaments(tournament_list):
     t_players_save = []
     t_rounds_save = []
     t_matchs_save = []
+    # save tournament data
     for tournament in tournament_list:
         tournaments_save.append(
             {'name': tournament.name,
@@ -47,6 +49,7 @@ def save_tournaments(tournament_list):
              'nbtours': tournament.nbtours,
              'max_players': tournament.max_players,
              'closed': tournament.closed})
+        # save tournament's player data
         for player in tournament.players:
             t_players_save.append(
                 {'tournament_name': tournament.name,
@@ -56,12 +59,14 @@ def save_tournaments(tournament_list):
                  'gender': player.gender,
                  'rank': player.rank,
                  'tournament_points': player.tournament_points})
+        # save tournament's round data
         for round in tournament.rounds:
             t_rounds_save.append(
                 {'tournament_name': tournament.name,
                  'name': round.name,
                  'date_begin': round.date_begin.isoformat(),
                  'date_end': round.date_end.isoformat()})
+            # save tournament's match data
             for match in round.matchs_round:
                 t_matchs_save.append(
                         {'tournament_name': tournament.name,
@@ -103,7 +108,7 @@ def save_tournaments(tournament_list):
     t_matchs_table.insert_multiple(t_matchs_save)
     print("Données sauvegardées")
 
-
+# load players data
 def load_players(player_list):
     player_list[:] = []
     players_table = db.table('players')
@@ -118,6 +123,7 @@ def load_players(player_list):
     print("Données chargées")
 
 
+# load tournament list
 def load_tournaments(tournament_list):
     tournament_list[:] = []
     tournaments_table = db.table('tournaments')
@@ -136,6 +142,7 @@ def load_tournaments(tournament_list):
                        tournament['closed']))
 
 
+# load tournament's players data
 def load_players_tournaments(tournament_list):
     t_players_table = db.table('t_players')
     t_players_save = t_players_table.all()
@@ -151,6 +158,7 @@ def load_players_tournaments(tournament_list):
                                                  player['tournament_points']))
 
 
+# load tournament's round data
 def load_rounds_tournaments(tournament_list):
     t_rounds_table = db.table('t_rounds')
     t_rounds_save = t_rounds_table.all()
@@ -165,6 +173,7 @@ def load_rounds_tournaments(tournament_list):
                           dateutil.parser.isoparse(round['date_end'])))
 
 
+# load tournament's match data
 def load_matchs_tournaments(tournament_list):
     t_matchs_table = db.table('t_matchs')
     t_matchs_save = t_matchs_table.all()

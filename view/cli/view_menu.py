@@ -10,9 +10,6 @@ def menu_input():
     return choice
 
 
-"""Start Menu"""
-
-
 def menu_start(tournament_list, round_list, match_list):
     if len(tournament_list) == 0 or tournament_list[-1].closed == "Y":
         print("""
@@ -84,15 +81,14 @@ joueurs au tournoi \
 """)
 
 
-"""Menu new tournament"""
-
-
 def menu_tournament_create(menu_list):
-    choice = input("""
+    choice = (input("""
 -------- 1. CREATION TOURNOI  -------
 Voulez-vous créer un tournoi ? O/N
 
-""")
+""")).capitalize()
+    while choice not in ["O", "N"]:
+        choice = (input("Veuillez choisir O ou N")).capitalize()
     menu_list.pop()
     return menu_list, choice
 
