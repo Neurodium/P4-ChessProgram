@@ -1,10 +1,6 @@
-from view.cli.view_menu import menu_start, \
-    menu_tournament_create, menu_tournament_add_player, \
-    menu_tournament_new_round, menu_enter_score, \
-    menu_close_round, menu_all_match_played, \
-    menu_close_tournament, menu_tournament_created,\
-    menu_reports_start, menu_save_load, \
-    menu_save, menu_load, menu_input
+from view.cli.view_menu import menu_start, menu_tournament_create, menu_tournament_add_player, \
+    menu_tournament_new_round, menu_enter_score, menu_close_round, menu_all_match_played, menu_close_tournament, \
+    menu_tournament_created, menu_reports_start, menu_save_load, menu_save, menu_load, menu_input, check_input
 from view.cli.view_player import show_player_list_name, \
     show_player_list_rank, show_player_tournament_list_name, \
     show_player_tournament_list_rank
@@ -30,10 +26,7 @@ def menu_navigation(menu_list, tournament_list, player_list,
     if menu_list == []:
         menu_start(tournament_list, round_list, match_list)
         choice = menu_input()
-        if choice in [1, 2, 3, 4, 5, 6, 7, 8]:
-            menu_list.append(choice)
-        else:
-            pass
+        check_input(choice, menu_list, [1, 2, 3, 4, 5, 6, 7, 8])
     elif menu_list == [1]:
         menu_list, choice = menu_tournament_create(menu_list)
         if choice == "O":
@@ -97,6 +90,8 @@ def menu_navigation(menu_list, tournament_list, player_list,
         update_players_rank(player_list)
     elif menu_list == [6]:
         menu_reports_start(menu_list)
+        choice = menu_input()
+        check_input(choice, menu_list, [1, 2, 3, 4, 5, 6, 7, 8])
     elif menu_list == [6, 1]:
         show_player_list_name(menu_list, player_list)
     elif menu_list == [6, 2]:
@@ -116,6 +111,8 @@ def menu_navigation(menu_list, tournament_list, player_list,
         menu_list.pop()
     elif menu_list == [7]:
         menu_save_load(menu_list)
+        choice = menu_input()
+        check_input(choice, menu_list, [1, 2, 3])
     elif menu_list == [7, 1]:
         menu_save(menu_list)
         save_players(player_list)

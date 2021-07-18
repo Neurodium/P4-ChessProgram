@@ -46,8 +46,7 @@ def show_player_list_rank(menu_list, player_list):
 def show_player_tournament_list_name(menu_list, tournament_list):
     for tournament in tournament_list:
         print(f"Tournoi: {tournament.name}")
-    tournament_name = input(
-        "Veuillez entrer le nom du tournoi que vous souhaitez consulter")
+    tournament_name = input("Veuillez entrer le nom du tournoi que vous souhaitez consulter")
     player_array = []
     for tournament in tournament_list:
         if tournament_name == tournament.name:
@@ -74,8 +73,7 @@ def show_player_tournament_list_name(menu_list, tournament_list):
 def show_player_tournament_list_rank(menu_list, tournament_list):
     for tournament in tournament_list:
         print(f"Tournoi: {tournament.name}")
-    tournament_name = input(
-        "Veuillez entrer le nom du tournoi que vous souhaitez consulter")
+    tournament_name = input("Veuillez entrer le nom du tournoi que vous souhaitez consulter")
     player_array = []
     for tournament in tournament_list:
         if tournament_name == tournament.name:
