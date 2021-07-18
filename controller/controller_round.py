@@ -2,9 +2,6 @@ from model.round import Round
 import datetime
 
 
-"""Round initialization"""
-
-
 def add_new_round(round_list, tournament_list, match_list):
     if len(tournament_list) == 0:
         pass
@@ -37,3 +34,4 @@ def close_round(match_list, tournament_list, round_list):
         round_list[-1].matchs_round.append(match)
     match_list[:] = []
     round_list[-1].date_end = datetime.datetime.now()
+    return match_list, tournament_list, round_list

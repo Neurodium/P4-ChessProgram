@@ -1,6 +1,7 @@
 from view.cli.view_match import show_match_current_round
 
 
+# avoid a wrong input for int data
 def menu_input():
     try:
         choice = int(input("Quel est votre choix ?"))
@@ -10,7 +11,25 @@ def menu_input():
     return choice
 
 
+# check if the input for the menu is in the range of the menu list
+def check_input_num(choice, menu_list, input_list):
+    if choice in input_list:
+        menu_list.append(choice)
+    else:
+        pass
+
+
+# check if the answer is Y or N
+def check_input_str(choice, menu_list):
+    while choice not in ["O", "N"]:
+        choice = (input("Veuillez choisir O ou N")).capitalize()
+    menu_list.pop()
+    return choice
+
+
+# this is the start menu
 def menu_start(tournament_list, round_list, match_list):
+    # if no tournament is currently opened no additional display
     if len(tournament_list) == 0 or tournament_list[-1].closed == "Y":
         print("""
 Que souhaitez-vous faire ?
@@ -23,7 +42,7 @@ Que souhaitez-vous faire ?
 7. Sauvegarder/Charger
 8. Quitter
 """)
-
+    # if the tournament is created but no round has been created yet, it displays the tournament name
     elif len(round_list) == 0:
         print(f"""
 ----- Tournoi en cours: {tournament_list[-1].name}
@@ -39,6 +58,7 @@ Que souhaitez-vous faire ?
 7. Sauvegarder/Charger
 8. Quitter
 """)
+
     elif len(match_list) == 0:
         print(f"""
 ----- Tournoi en cours: {tournament_list[-1].name}
@@ -81,9 +101,7 @@ def menu_tournament_create(menu_list):
 Voulez-vous créer un tournoi ? O/N
 
 """)).capitalize()
-    while choice not in ["O", "N"]:
-        choice = (input("Veuillez choisir O ou N")).capitalize()
-    menu_list.pop()
+    choice = check_input_str(choice, menu_list)
     return menu_list, choice
 
 
@@ -97,8 +115,7 @@ def menu_tournament_add_player(menu_list, tournament_list):
     else:
         print(f"""
 -------- 2.1 AJOUTER JOUEURS AU TOURNOI -------
-Veuillez entrer les informations du \
-joueur à ajouter au tournoi {tournament_list[-1].name}:
+Veuillez entrer les informations du joueur à ajouter au tournoi {tournament_list[-1].name}:
 
 """)
     menu_list.pop()
@@ -142,10 +159,10 @@ def menu_close_tournament(menu_list, tournament_list, match_list, round_list):
 """)
     if tournament_list[-1].closed == "N" and len(match_list) == 0 and len(round_list) == tournament_list[-1].nbtours:
         choice = input(f"Voulez_vous clôturer le tournoi {tournament_list[-1].name} ? O/N")
+        choice = check_input_str(choice, menu_list)
     else:
         choice = "N"
         "Vous devez créer un nouveau tournoi"
-    menu_list.pop()
     return choice, menu_list
 
 
@@ -186,10 +203,3 @@ def menu_save(menu_list):
 def menu_load(menu_list):
     print("Chargement des données")
     menu_list.pop()
-
-
-def check_input(choice, menu_list, input_list):
-    if choice in input_list:
-        menu_list.append(choice)
-    else:
-        pass

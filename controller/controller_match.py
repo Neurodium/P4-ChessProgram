@@ -64,29 +64,29 @@ def enter_match_score(match_list):
         answer = (input(f"Voulez-vous entrer les scores pour le {match.name} ? O/N")).capitalize()
         while answer not in ["O", "N"]:
             answer = (input("Veuillez choisir O ou N")).capitalize()
-            if answer == "O":
-                score_1 = 0
-                score_2 = 0
-                while score_1 + score_2 != 1.0:
-                    while True:
-                        try:
-                            score_1 = float(input(f"Score de {match.players[0].last_name} "
-                                                  f"{match.players[0].first_name} (0 / 0.5 / 1): "))
-                            if score_1 in [0, 0.5, 1]:
-                                break
-                        except ValueError:
-                            print("Veuillez choisir un chiffre entre 0 / 0.5 / 1")
-                    while True:
-                        try:
-                            score_2 = float(input(f"Score de {match.players[1].last_name} "
-                                                  f"{match.players[1].first_name} (0 / 0.5 / 1): "))
-                            if score_2 in [0, 0.5, 1]:
-                                break
-                        except ValueError:
-                            print("Veuillez choisir un chiffre entre 0 / 0.5 / 1")
-                    if score_1 + score_2 == 1.0:
-                        match.score = [score_1, score_2]
-                        break
-                    else:
-                        print("Le score est incorrect")
+        if answer == "O":
+            score_1 = 0
+            score_2 = 0
+            while score_1 + score_2 != 1.0:
+                while True:
+                    try:
+                        score_1 = float(input(f"Score de {match.players[0].last_name} "
+                                              f"{match.players[0].first_name} (0 / 0.5 / 1): "))
+                        if score_1 in [0, 0.5, 1]:
+                            break
+                    except ValueError:
+                        print("Veuillez choisir un chiffre entre 0 / 0.5 / 1")
+                while True:
+                    try:
+                        score_2 = float(input(f"Score de {match.players[1].last_name} "
+                                              f"{match.players[1].first_name} (0 / 0.5 / 1): "))
+                        if score_2 in [0, 0.5, 1]:
+                            break
+                    except ValueError:
+                        print("Veuillez choisir un chiffre entre 0 / 0.5 / 1")
+                if score_1 + score_2 == 1.0:
+                    match.score = [score_1, score_2]
+                    break
+                else:
+                    print("Le score est incorrect")
     return match_list
