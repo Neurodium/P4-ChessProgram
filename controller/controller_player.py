@@ -1,4 +1,5 @@
 from model.player import Player
+from datetime import datetime
 
 
 def find_player_global(player_last_name, player_first_name, player_list):
@@ -37,7 +38,12 @@ def add_player(tournament_list, player_list):
         while add_new_player == "O" and len(tournament_list[-1].players) < tournament_list[-1].max_players:
             last_name = (input("Nom: ")).upper()
             first_name = (input("Prénom: ")).capitalize()
-            date = input("Date de naissance (JJ/MM/AAAA): ")
+            while True:
+                try:
+                    date = datetime.strptime(input("Date de naissance (JJ/MM/AAAA): "), '%d/%m/%Y')
+                    break
+                except ValueError:
+                    print("Vous devez entrer une date")
             gender = (input("Genre (M/F): ")).capitalize()
             while gender not in ["M", "F"]:
                 print("Veuillez choisir entre M et F")

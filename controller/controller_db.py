@@ -17,11 +17,46 @@ def save_players(player_list):
     for player in player_list:
         players_save.append({'last_name': player.last_name,
                              'first_name': player.first_name,
-                             'birthdate': player.birthdate,
+                             'birthdate': player.birthdate.isoformat(),
                              'gender': player.gender,
                              'rank': player.rank,
                              'tournament_points': player.tournament_points})
     players_table.insert_multiple(players_save)
+
+
+# save round state
+def save_rounds(round_list):
+    rounds_table = db.table('rounds')
+    rounds_table.truncate()
+    rounds_save = []
+    for round in round_list:
+        rounds_save.append({'name': round.name,
+                            'date_begin': round.date_begin.isoformat(),
+                            'date_end': round.date_end.isoformat()})
+    rounds_table.insert_multiple(rounds_save)
+
+# save match state
+def save_matchs(match_list):
+    matchs_table = db.table('matchs')
+    matchs_table.truncate()
+    matchs_save = []
+    for match in match_list:
+        matchs_save.append({'match_name': match.name,
+                            'last_name_player_1': match.players[0].last_name,
+                            'first_name_player_1': match.players[0].first_name,
+                            'birthdate_player_1': match.players[0].birthdate.isoformat(),
+                            'gender_player_1': match.players[0].gender,
+                            'rank_player_1': match.players[0].rank,
+                            'tournament_points_player_1': match.players[0].tournament_points,
+                            'score_player_1': match.score[0],
+                            'last_name_player_2': match.players[1].last_name,
+                            'first_name_player_2': match.players[1].first_name,
+                            'birthdate_player_2': match.players[1].birthdate.isoformat(),
+                            'gender_player_2': match.players[1].gender,
+                            'rank_player_2': match.players[1].rank,
+                            'tournament_points_player_2': match.players[1].tournament_points,
+                            'score_player_2': match.score[1]})
+    matchs_table.insert_multiple(matchs_save)
 
 
 # save tournament data into tables 'tournaments', 't_players', 't_rounds', 't_match'
@@ -53,7 +88,7 @@ def save_tournaments(tournament_list):
             t_players_save.append({'tournament_name': tournament.name,
                                    'last_name': player.last_name,
                                    'first_name': player.first_name,
-                                   'birthdate': player.birthdate,
+                                   'birthdate': player.birthdate.isoformat(),
                                    'gender': player.gender,
                                    'rank': player.rank,
                                    'tournament_points': player.tournament_points})
@@ -70,14 +105,14 @@ def save_tournaments(tournament_list):
                                       'match_name': match.name,
                                       'last_name_player_1': match.players[0].last_name,
                                       'first_name_player_1': match.players[0].first_name,
-                                      'birthdate_player_1': match.players[0].birthdate,
+                                      'birthdate_player_1': match.players[0].birthdate.isoformat(),
                                       'gender_player_1': match.players[0].gender,
                                       'rank_player_1': match.players[0].rank,
                                       'tournament_points_player_1': match.players[0].tournament_points,
                                       'score_player_1': match.score[0],
                                       'last_name_player_2': match.players[1].last_name,
                                       'first_name_player_2': match.players[1].first_name,
-                                      'birthdate_player_2': match.players[1].birthdate,
+                                      'birthdate_player_2': match.players[1].birthdate.isoformat(),
                                       'gender_player_2': match.players[1].gender,
                                       'rank_player_2': match.players[1].rank,
                                       'tournament_points_player_2': match.players[1].tournament_points,
@@ -97,7 +132,7 @@ def load_players(player_list):
     for player in players_load:
         player_list.append(Player(player['last_name'],
                                   player['first_name'],
-                                  player['birthdate'],
+                                  dateutil.parser.isoparse(player['birthdate']),
                                   player['gender'],
                                   player['rank'],
                                   player['tournament_points']))
@@ -122,6 +157,40 @@ def load_tournaments(tournament_list):
                                           tournament['closed']))
 
 
+# load round last state
+def load_rounds(round_list):
+    round_list[:] = []
+    rounds_table = db.table('rounds')
+    rounds_save = rounds_table.all()
+    for round in rounds_save:
+        round_list.append(Round(round['name'],
+                                       dateutil.parser.isoparse(round['date_begin']),
+                                       [],
+                                       dateutil.parser.isoparse(round['date_end'])))
+
+
+def load_matchs(match_list):
+    match_list[:] = []
+    matchs_table = db.table('matchs')
+    matchs_save = matchs_table.all()
+    for match in matchs_save:
+        match_list.append(Match(match['match_name'],
+                                [Player(match['last_name_player_1'],
+                                        match['first_name_player_1'],
+                                        dateutil.parser.isoparse(match['birthdate_player_1']),
+                                        match['gender_player_1'],
+                                        match['rank_player_1'],
+                                        match['tournament_points_player_1']),
+                                 Player(match['last_name_player_2'],
+                                        match['first_name_player_2'],
+                                        dateutil.parser.isoparse(match['birthdate_player_2']),
+                                        match['gender_player_2'],
+                                        match['rank_player_2'],
+                                        match['tournament_points_player_2'])],
+                                [match['score_player_1'],
+                                 match['score_player_2']]))
+
+
 # load tournament's players data
 def load_players_tournaments(tournament_list):
     t_players_table = db.table('t_players')
@@ -132,7 +201,7 @@ def load_players_tournaments(tournament_list):
             if player['tournament_name'] == tournament.name:
                 tournament.players.append(Player(player['last_name'],
                                                  player['first_name'],
-                                                 player['birthdate'],
+                                                 dateutil.parser.isoparse(player['birthdate']),
                                                  player['gender'],
                                                  player['rank'],
                                                  player['tournament_points']))
@@ -163,13 +232,13 @@ def load_matchs_tournaments(tournament_list):
                     round.matchs_round.append(Match(match['match_name'],
                                                     [Player(match['last_name_player_1'],
                                                             match['first_name_player_1'],
-                                                            match['birthdate_player_1'],
+                                                            dateutil.parser.isoparse(match['birthdate_player_1']),
                                                             match['gender_player_1'],
                                                             match['rank_player_1'],
                                                             match['tournament_points_player_1']),
                                                      Player(match['last_name_player_2'],
                                                             match['first_name_player_2'],
-                                                            match['birthdate_player_2'],
+                                                            dateutil.parser.isoparse(match['birthdate_player_2']),
                                                             match['gender_player_2'],
                                                             match['rank_player_2'],
                                                             match['tournament_points_player_2'])],
