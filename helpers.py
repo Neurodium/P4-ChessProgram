@@ -21,8 +21,7 @@ from controller.controller_db import save_players, \
 
 
 # manage which page will be displayed
-def menu_navigation(menu_list, tournament_list, player_list,
-                    round_list, match_list):
+def menu_navigation(menu_list, tournament_list, player_list, round_list, match_list):
     if menu_list == []:
         menu_start(tournament_list, round_list, match_list)
         choice = menu_input()
@@ -30,6 +29,7 @@ def menu_navigation(menu_list, tournament_list, player_list,
     elif menu_list == [1]:
         menu_list, choice = menu_tournament_create(menu_list)
         if choice == "O":
+            # checks if there is no tournament currently opened
             if len(tournament_list) == 0 or tournament_list[-1].closed == "Y":
                 create_tournament(tournament_list)
             else:
@@ -37,6 +37,7 @@ def menu_navigation(menu_list, tournament_list, player_list,
     elif menu_list == [2]:
         menu_tournament_add_player(menu_list, tournament_list)
         tournament_list = add_player(tournament_list, player_list)
+        # checks if all players have been added to the tournament
         if len(tournament_list[-1].players) == tournament_list[-1].max_players:
             menu_tournament_new_round(round_list,
                                       tournament_list,
@@ -48,10 +49,13 @@ def menu_navigation(menu_list, tournament_list, player_list,
                               round_list,
                               match_list)
     elif menu_list == [3]:
+        # checks if there are matches to be played
         if len(match_list) != 0:
             menu_enter_score(menu_list)
             match_list = enter_match_score(match_list)
+            # checks if the number of points entered is correct
             if check_match_points(match_list) is True:
+                # checks if the number of rounds has reached the max
                 if len(round_list) < tournament_list[-1].nbtours:
                     menu_close_round(round_list)
                     match_list, tournament_list, round_list = close_round(match_list, tournament_list, round_list)
