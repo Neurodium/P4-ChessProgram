@@ -25,19 +25,23 @@ def view_tournaments_all(menu_list, tournament_list):
     menu_list.pop()
 
 
-def view_tournament_all_rounds(menu_list, tournament_list):
+def view_tournament_all_rounds(menu_list, round_list, tournament_list):
     for tournament in tournament_list:
         print(f"Tournoi: {tournament.name}")
-    tournament_name = input(
-        "Veuillez entrer le nom du tournoi que vous souhaitez consulter")
+    tournament_name = (input("Veuillez entrer le nom du tournoi que vous souhaitez consulter")).capitalize()
     round_array = []
     for tournament in tournament_list:
         if tournament_name == tournament.name:
-            for round in tournament.rounds:
-                round_array.append(
-                    [round.name,
-                     round.date_begin.strftime("%d/%m/%Y (%H:%M:%S)"),
-                     round.date_end.strftime("%d/%m/%Y (%H:%M:%S)")])
+            if tournament.rounds == []:
+                for round in round_list:
+                    round_array.append([round.name,
+                                        round.date_begin.strftime("%d/%m/%Y (%H:%M:%S)"),
+                                        round.date_end.strftime("%d/%m/%Y (%H:%M:%S)")])
+            else:
+                for round in tournament.rounds:
+                    round_array.append([round.name,
+                                        round.date_begin.strftime("%d/%m/%Y (%H:%M:%S)"),
+                                        round.date_end.strftime("%d/%m/%Y (%H:%M:%S)")])
             round_df = pd.DataFrame(data=round_array,
                                     columns=["Nom",
                                              "Date début",
@@ -48,38 +52,66 @@ def view_tournament_all_rounds(menu_list, tournament_list):
     menu_list.pop()
 
 
-def view_tournament_all_matchs(menu_list, tournament_list):
+def view_tournament_all_matchs(menu_list, round_list, tournament_list):
     for tournament in tournament_list:
         print(f"Tournoi: {tournament.name}")
-    tournament_name = input(
-        "Veuillez entrer le nom du tournoi que vous souhaitez consulter")
+    tournament_name = (input("Veuillez entrer le nom du tournoi que vous souhaitez consulter")).capitalize()
     match_array = []
     for tournament in tournament_list:
         if tournament_name == tournament.name:
-            for round in tournament.rounds:
-                for match in round.matchs_round:
-                    match_array.append([round.name,
-                                        match.name,
-                                        match.players[0].last_name,
-                                        match.players[0].first_name,
-                                        "contre",
-                                        match.players[1].last_name,
-                                        match.players[1].first_name,
-                                        match.score[0],
-                                        "-",
-                                        match.score[1]])
-            match_df = pd.DataFrame(data=match_array,
-                                    columns=["Round",
-                                             "Match",
-                                             "Joueur 1",
-                                             "",
-                                             "",
-                                             "Joueur 2",
-                                             "",
-                                             "Score 1",
-                                             "-",
-                                             "Score 2"])
-            print(match_df.to_string(index=False))
+            if tournament.rounds == []:
+                if round_list[0].matchs_round == []:
+                    print("Le round 1 n'est pas terminé")
+                else:
+                    for round in round_list:
+                        for match in round.matchs_round:
+                            match_array.append([round.name,
+                                                match.name,
+                                                match.players[0].last_name,
+                                                match.players[0].first_name,
+                                                "contre",
+                                                match.players[1].last_name,
+                                                match.players[1].first_name,
+                                                match.score[0],
+                                                "-",
+                                                match.score[1]])
+                    match_df = pd.DataFrame(data=match_array,
+                                            columns=["Round",
+                                                     "Match",
+                                                     "Joueur 1",
+                                                     "",
+                                                     "",
+                                                     "Joueur 2",
+                                                     "",
+                                                     "Score 1",
+                                                     "-",
+                                                     "Score 2"])
+                    print(match_df.to_string(index=False))
+            else:
+                for round in tournament.rounds:
+                    for match in round.matchs_round:
+                        match_array.append([round.name,
+                                            match.name,
+                                            match.players[0].last_name,
+                                            match.players[0].first_name,
+                                            "contre",
+                                            match.players[1].last_name,
+                                            match.players[1].first_name,
+                                            match.score[0],
+                                            "-",
+                                            match.score[1]])
+                match_df = pd.DataFrame(data=match_array,
+                                        columns=["Round",
+                                                 "Match",
+                                                 "Joueur 1",
+                                                 "",
+                                                 "",
+                                                 "Joueur 2",
+                                                 "",
+                                                 "Score 1",
+                                                 "-",
+                                                 "Score 2"])
+                print(match_df.to_string(index=False))
         else:
             print("Ce tournoi n'existe pas")
 

@@ -11,7 +11,8 @@ def add_new_round(round_list, tournament_list, match_list):
         nb_round = len(round_list)
         round_list.append(Round(f"Round {nb_round + 1}",
                                 datetime.datetime.now(),
-                                []))
+                                [],
+                                datetime.datetime.now()))
         return round_list
 
 

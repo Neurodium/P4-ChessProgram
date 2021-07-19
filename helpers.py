@@ -15,14 +15,14 @@ from controller.controller_match import match_first_round, \
 from controller.controller_round import add_new_round, \
     close_round, check_match_points
 from controller.controller_db import save_players, \
-    save_tournaments, load_players, \
-    load_tournaments, load_players_tournaments, \
-    load_rounds_tournaments, load_matchs_tournaments
+    save_tournaments, save_matchs, save_rounds, load_players, save_round_match, \
+    load_tournaments, load_players_tournaments, load_rounds_match, \
+    load_rounds_tournaments, load_matchs_tournaments, load_matchs, load_rounds
 
 
 # manage which page will be displayed
 def menu_navigation(menu_list, tournament_list, player_list, round_list, match_list):
-    if menu_list == []:
+    if len(menu_list) == 0:
         menu_start(tournament_list, round_list, match_list)
         choice = menu_input()
         check_input_num(choice, menu_list, [1, 2, 3, 4, 5, 6, 7, 8])
@@ -92,9 +92,9 @@ def menu_navigation(menu_list, tournament_list, player_list, round_list, match_l
     elif menu_list == [6, 5]:
         view_tournaments_all(menu_list, tournament_list)
     elif menu_list == [6, 6]:
-        view_tournament_all_rounds(menu_list, tournament_list)
+        view_tournament_all_rounds(menu_list, round_list, tournament_list)
     elif menu_list == [6, 7]:
-        view_tournament_all_matchs(menu_list, tournament_list)
+        view_tournament_all_matchs(menu_list, round_list, tournament_list)
     elif menu_list == [6, 8]:
         menu_list.pop()
         menu_list.pop()
@@ -105,6 +105,9 @@ def menu_navigation(menu_list, tournament_list, player_list, round_list, match_l
     elif menu_list == [7, 1]:
         menu_save(menu_list)
         save_players(player_list)
+        save_matchs(match_list)
+        save_rounds(round_list)
+        save_round_match(round_list)
         save_tournaments(tournament_list)
     elif menu_list == [7, 2]:
         menu_load(menu_list)
@@ -113,6 +116,9 @@ def menu_navigation(menu_list, tournament_list, player_list, round_list, match_l
         load_players_tournaments(tournament_list)
         load_rounds_tournaments(tournament_list)
         load_matchs_tournaments(tournament_list)
+        load_rounds(round_list)
+        load_rounds_match(round_list)
+        load_matchs(match_list)
     elif menu_list == [7, 3]:
         menu_list.pop()
         menu_list.pop()

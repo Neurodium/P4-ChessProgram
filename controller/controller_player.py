@@ -5,12 +5,19 @@ from datetime import datetime
 def find_player_global(player_last_name, player_first_name, player_list):
     for player in player_list:
         if player_last_name == player.last_name and player_first_name == player.first_name:
+            return True
+    return False
+
+
+def add_global_player(player_last_name, player_first_name, player_list):
+    for player in player_list:
+        if player_last_name == player.last_name and player_first_name == player.first_name:
             return player
 
 
-def find_player_tournament(player, tournament_list):
+def find_player_tournament(player_last_name, player_first_name, tournament_list):
     for player_tournament in tournament_list[-1].players:
-        if player.last_name == player_tournament.last_name and player.first_name == player_tournament.first_name:
+        if player_last_name == player_tournament.last_name and player_first_name == player_tournament.first_name:
             return True
     return False
 
@@ -38,35 +45,29 @@ def add_player(tournament_list, player_list):
         while add_new_player == "O" and len(tournament_list[-1].players) < tournament_list[-1].max_players:
             last_name = (input("Nom: ")).upper()
             first_name = (input("Prénom: ")).capitalize()
-            while True:
-                try:
-                    date = datetime.strptime(input("Date de naissance (JJ/MM/AAAA): "), '%d/%m/%Y')
-                    break
-                except ValueError:
-                    print("Vous devez entrer une date")
-            gender = (input("Genre (M/F): ")).capitalize()
-            while gender not in ["M", "F"]:
-                print("Veuillez choisir entre M et F")
-                gender = (input())
-            player = Player(last_name, first_name, date, gender)
-            if find_player_tournament(player, tournament_list) is False:
-                tournament_list[-1].players.append(player)
-                if find_player_global(last_name, first_name, player_list) is False:
-                    player_list.append(player)
-                else:
-                    pass
+            if find_player_tournament(last_name, first_name, tournament_list) is True:
+                print("Ce joueur est déjà dans le tournoi")
+            elif find_player_global(last_name, first_name, player_list) is True:
+                tournament_list[-1].players.append(add_global_player(last_name, first_name, player_list))
+                print("Le joueur ou la joueuse a été ajouté au tournoi")
             else:
-                print(f"Le joueur ou la joueuse est déjà "
-                      f"dans le tournoi {tournament_list[-1].name}")
-                pass
+                while True:
+                    try:
+                        date = datetime.strptime(input("Date de naissance (JJ/MM/AAAA): "), '%d/%m/%Y')
+                        break
+                    except ValueError:
+                        print("Vous devez entrer une date")
+                gender = (input("Genre (M/F): ")).capitalize()
+                while gender not in ["M", "F"]:
+                    print("Veuillez choisir entre M et F")
+                    gender = (input())
+                player = Player(last_name, first_name, date, gender)
+                tournament_list[-1].players.append(player)
+                player_list.append(player)
             if len(tournament_list[-1].players) < tournament_list[-1].max_players:
                 add_new_player = (input("Voulez-vous ajouter un autre joueur ou une autre joueuse ? O/N")).capitalize()
             else:
                 add_new_player = "N"
-
-        for player in player_list:
-            tournament_list[-1].players.append(player)
-
     return tournament_list
 
 
