@@ -66,3 +66,13 @@ The program runs with default settings set as:
 * 4 rounds per tournament
  
 These parameters can be changed if a tournament needs to be changed
+
+## How to use the program
+
+1. Create a tournament
+2. Add the players to it until you reach the max number of players
+3. When all players have been added, first round is automatically generated with the pair of matches
+4. Enter the score for each match
+5. When all score have been entered, round is closed and a new one is opened till the max number of rounds is hit
+6. When tournament is over, you can close it to create a new one
+7. At any point in time you can save your data or load the last state saved, print reports
