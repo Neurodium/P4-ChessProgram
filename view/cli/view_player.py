@@ -1,7 +1,9 @@
 import pandas as pd
 
 
+# display the global list of players by name
 def show_player_list_name(menu_list, player_list):
+    # sort players by name
     player_list = sorted(player_list, key=lambda player: player.last_name)
     player_array = []
     for player in player_list:
@@ -11,6 +13,7 @@ def show_player_list_name(menu_list, player_list):
                              player.gender,
                              player.rank,
                              player.tournament_points])
+    # use dataframe to display the player list
     player_df = pd.DataFrame(data=player_array,
                              columns=["Nom de Famille",
                                       "Prénom",
@@ -22,6 +25,7 @@ def show_player_list_name(menu_list, player_list):
     menu_list.pop()
 
 
+# display the global list of players by rank
 def show_player_list_rank(menu_list, player_list):
     player_list = sorted(player_list, key=lambda player: player.rank)
     player_array = []
@@ -32,6 +36,7 @@ def show_player_list_rank(menu_list, player_list):
                              player.first_name,
                              player.birthdate,
                              player.gender])
+    # use dataframe to display the list of players
     player_df = pd.DataFrame(data=player_array,
                              columns=["Classement",
                                       "Points",
@@ -43,10 +48,11 @@ def show_player_list_rank(menu_list, player_list):
     menu_list.pop()
 
 
+# show tournament list of players by name
 def show_player_tournament_list_name(menu_list, tournament_list):
     for tournament in tournament_list:
         print(f"Tournoi: {tournament.name}")
-    tournament_name = input("Veuillez entrer le nom du tournoi que vous souhaitez consulter")
+    tournament_name = (input("Veuillez entrer le nom du tournoi que vous souhaitez consulter")).capitalize()
     player_array = []
     for tournament in tournament_list:
         if tournament_name == tournament.name:
@@ -59,6 +65,7 @@ def show_player_tournament_list_name(menu_list, tournament_list):
                                      player.gender,
                                      player.rank,
                                      player.tournament_points])
+    # use dataframe to display the list of players of the tournament
     player_df = pd.DataFrame(data=player_array,
                              columns=["Nom de Famille",
                                       "Prénom",
@@ -70,10 +77,11 @@ def show_player_tournament_list_name(menu_list, tournament_list):
     menu_list.pop()
 
 
+# shows the tournament list of players by rank
 def show_player_tournament_list_rank(menu_list, tournament_list):
     for tournament in tournament_list:
         print(f"Tournoi: {tournament.name}")
-    tournament_name = input("Veuillez entrer le nom du tournoi que vous souhaitez consulter")
+    tournament_name = (input("Veuillez entrer le nom du tournoi que vous souhaitez consulter")).capitalize()
     player_array = []
     for tournament in tournament_list:
         if tournament_name == tournament.name:
@@ -86,6 +94,7 @@ def show_player_tournament_list_rank(menu_list, tournament_list):
                                      player.first_name,
                                      player.birthdate,
                                      player.gender])
+    # use dataframe to show the list of players
     player_df = pd.DataFrame(data=player_array,
                              columns=["Classement",
                                       "Points",

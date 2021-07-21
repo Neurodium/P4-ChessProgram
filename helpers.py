@@ -9,7 +9,7 @@ from view.cli.view_tournament import view_tournaments_all, \
 from controller.controller_tournament import create_tournament, \
     close_tournament
 from controller.controller_player import add_player, \
-    update_players_rank, change_player_rank
+    update_players_rank, change_player_rank, update_global_points
 from controller.controller_match import match_first_round, \
     match_next_round, enter_match_score
 from controller.controller_round import add_new_round, \
@@ -35,19 +35,24 @@ def menu_navigation(menu_list, tournament_list, player_list, round_list, match_l
             else:
                 menu_tournament_created()
     elif menu_list == [2]:
-        menu_tournament_add_player(menu_list, tournament_list)
-        tournament_list = add_player(tournament_list, player_list)
-        # checks if all players have been added to the tournament
-        if len(tournament_list[-1].players) == tournament_list[-1].max_players:
-            menu_tournament_new_round(round_list,
-                                      tournament_list,
-                                      match_list)
-            round_list = add_new_round(round_list,
-                                       tournament_list,
-                                       match_list)
-            match_first_round(tournament_list,
-                              round_list,
-                              match_list)
+        if len(tournament_list) == 0:
+            print("Veuillez créer un tournoi")
+            menu_list.pop()
+        else:
+            menu_tournament_add_player(menu_list, round_list, tournament_list)
+            tournament_list = add_player(tournament_list, player_list)
+            # checks if all players have been added to the tournament
+            if len(tournament_list[-1].players) == tournament_list[-1].max_players:
+                update_players_rank(player_list)
+                menu_tournament_new_round(round_list,
+                                          tournament_list,
+                                          match_list)
+                round_list = add_new_round(round_list,
+                                           tournament_list,
+                                           match_list)
+                match_first_round(tournament_list,
+                                  round_list,
+                                  match_list)
     elif menu_list == [3]:
         # checks if there are matches to be played
         if len(match_list) != 0:
@@ -68,17 +73,22 @@ def menu_navigation(menu_list, tournament_list, player_list, round_list, match_l
         else:
             menu_all_match_played(menu_list)
     elif menu_list == [4]:
-        choice, menu_list = menu_close_tournament(menu_list, tournament_list, match_list, round_list)
-        if choice == "O":
-            close_tournament(tournament_list, round_list)
-            update_players_rank(player_list)
+        if len(tournament_list) == 0:
+            print("Veuillez créer un tournoi")
+            menu_list.pop()
         else:
-            pass
+            choice, menu_list = menu_close_tournament(menu_list, tournament_list, match_list, round_list)
+            if choice == "O":
+                close_tournament(tournament_list, round_list)
+                update_global_points(player_list, tournament_list)
+                update_players_rank(player_list)
+            else:
+                pass
     elif menu_list == [5]:
         menu_list, player_list = change_player_rank(menu_list, player_list)
         update_players_rank(player_list)
     elif menu_list == [6]:
-        menu_reports_start(menu_list)
+        menu_reports_start()
         choice = menu_input()
         check_input_num(choice, menu_list, [1, 2, 3, 4, 5, 6, 7, 8])
     elif menu_list == [6, 1]:
@@ -99,7 +109,7 @@ def menu_navigation(menu_list, tournament_list, player_list, round_list, match_l
         menu_list.pop()
         menu_list.pop()
     elif menu_list == [7]:
-        menu_save_load(menu_list)
+        menu_save_load()
         choice = menu_input()
         check_input_num(choice, menu_list, [1, 2, 3])
     elif menu_list == [7, 1]:

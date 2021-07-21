@@ -14,6 +14,7 @@ def save_players(player_list):
     players_table = db.table('players')
     players_table.truncate()
     players_save = []
+    # serialize players
     for player in player_list:
         players_save.append({'last_name': player.last_name,
                              'first_name': player.first_name,
@@ -29,6 +30,7 @@ def save_rounds(round_list):
     rounds_table = db.table('rounds')
     rounds_table.truncate()
     rounds_save = []
+    # serialize rounds
     for round in round_list:
         rounds_save.append({'name': round.name,
                             'date_begin': round.date_begin.isoformat(),
@@ -41,6 +43,7 @@ def save_matchs(match_list):
     matchs_table = db.table('matchs')
     matchs_table.truncate()
     matchs_save = []
+    # serialize matchs
     for match in match_list:
         matchs_save.append({'match_name': match.name,
                             'last_name_player_1': match.players[0].last_name,
@@ -67,11 +70,12 @@ def save_round_match(round_list):
     rounds_match_table.truncate()
     rounds_save = []
     rounds_match_save = []
+    # serialize rounds
     for round in round_list:
         rounds_save.append({'name': round.name,
                             'date_begin': round.date_begin.isoformat(),
                             'date_end': round.date_end.isoformat()})
-        # save round's match data
+        # serialize rounds' matchs
         for match in round.matchs_round:
             rounds_match_save.append({'round_name': round.name,
                                       'match_name': match.name,
@@ -107,7 +111,7 @@ def save_tournaments(tournament_list):
     t_players_save = []
     t_rounds_save = []
     t_matchs_save = []
-    # save tournament data
+    # serialize tournaments
     for tournament in tournament_list:
         tournaments_save.append({'name': tournament.name,
                                  'place': tournament.place,
@@ -117,7 +121,7 @@ def save_tournaments(tournament_list):
                                  'nbtours': tournament.nbtours,
                                  'max_players': tournament.max_players,
                                  'closed': tournament.closed})
-        # save tournament's player data
+        # serialize tournament's players
         for player in tournament.players:
             t_players_save.append({'tournament_name': tournament.name,
                                    'last_name': player.last_name,
@@ -126,13 +130,13 @@ def save_tournaments(tournament_list):
                                    'gender': player.gender,
                                    'rank': player.rank,
                                    'tournament_points': player.tournament_points})
-        # save tournament's round data
+        # serialize tournament's round
         for round in tournament.rounds:
             t_rounds_save.append({'tournament_name': tournament.name,
                                   'name': round.name,
                                   'date_begin': round.date_begin.isoformat(),
                                   'date_end': round.date_end.isoformat()})
-            # save tournament's match data
+            # serialize tournament's match
             for match in round.matchs_round:
                 t_matchs_save.append({'tournament_name': tournament.name,
                                       'round_name': round.name,
@@ -163,6 +167,7 @@ def load_players(player_list):
     player_list[:] = []
     players_table = db.table('players')
     players_load = players_table.all()
+    # deserialize players table
     for player in players_load:
         player_list.append(Player(player['last_name'],
                                   player['first_name'],
@@ -178,6 +183,7 @@ def load_tournaments(tournament_list):
     tournament_list[:] = []
     tournaments_table = db.table('tournaments')
     tournaments_save = tournaments_table.all()
+    # deserialize tournaments table
     for tournament in tournaments_save:
         tournament_list.append(Tournament(tournament['name'],
                                           tournament['place'],
@@ -196,6 +202,7 @@ def load_rounds(round_list):
     round_list[:] = []
     rounds_table = db.table('rounds')
     rounds_save = rounds_table.all()
+    # deserialize rounds table
     for round in rounds_save:
         round_list.append(Round(round['name'],
                                 dateutil.parser.isoparse(round['date_begin']),
@@ -210,6 +217,7 @@ def load_rounds_match(round_list):
     for round in round_list:
         for match in rounds_match_save:
             if match['round_name'] == round.name:
+                # desserialize rounds' matchs table
                 round.matchs_round.append(Match(match['match_name'],
                                                 [Player(match['last_name_player_1'],
                                                         match['first_name_player_1'],
@@ -232,6 +240,7 @@ def load_matchs(match_list):
     matchs_table = db.table('matchs')
     matchs_save = matchs_table.all()
     for match in matchs_save:
+        # desserialize matchs table
         match_list.append(Match(match['match_name'],
                                 [Player(match['last_name_player_1'],
                                         match['first_name_player_1'],
@@ -255,6 +264,7 @@ def load_players_tournaments(tournament_list):
     t_players_save = t_players_table.all()
     for tournament in tournament_list:
         tournament.players[:] = []
+        # deserialize tournaments' players table
         for player in t_players_save:
             if player['tournament_name'] == tournament.name:
                 tournament.players.append(Player(player['last_name'],
@@ -271,6 +281,7 @@ def load_rounds_tournaments(tournament_list):
     t_rounds_save = t_rounds_table.all()
     for tournament in tournament_list:
         tournament.rounds[:] = []
+        # deserialize tournaments' round table
         for round in t_rounds_save:
             if round['tournament_name'] == tournament.name:
                 tournament.rounds.append(Round(round['name'],
@@ -285,6 +296,7 @@ def load_matchs_tournaments(tournament_list):
     t_matchs_save = t_matchs_table.all()
     for tournament in tournament_list:
         for round in tournament.rounds:
+            # deserialize tournament's match table
             for match in t_matchs_save:
                 if match['tournament_name'] == tournament.name and match['round_name'] == round.name:
                     round.matchs_round.append(Match(match['match_name'],

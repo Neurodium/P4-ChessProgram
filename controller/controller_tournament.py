@@ -20,6 +20,7 @@ def create_tournament(tournament_list):
         time_control = (input()).capitalize()
     description = input(
         "Avez-vous des commentaires pour le tournoi ?")
+    # create a new instance of Tournament
     obj_tournament = Tournament(name, place, date, time_control, description, players=[], rounds=[])
     tournament_list.append(obj_tournament)
 

@@ -28,7 +28,7 @@ def match_next_round(tournament_list, round_list, match_list):
                                (player.tournament_points,
                                 player.rank),
                                reverse=True)
-        # check if player had already played against the other-
+        # check if player had already played against the other previously
         if find_player_previous_match(players_match, round_list) is False:
             player = 0
             nb_match = 1
@@ -39,6 +39,7 @@ def match_next_round(tournament_list, round_list, match_list):
                 player += 2
                 nb_match += 1
         else:
+            # create instances of match in match list
             match_list.append(Match("Match 1",
                                     (players_match[0],
                                      players_match[2])))
@@ -68,6 +69,7 @@ def enter_match_score(match_list):
             score_1 = 0
             score_2 = 0
             while score_1 + score_2 != 1.0:
+                # check if the score entered is correct
                 while True:
                     try:
                         score_1 = float(input(f"Score de {match.players[0].last_name} "
@@ -76,6 +78,7 @@ def enter_match_score(match_list):
                             break
                     except ValueError:
                         print("Veuillez choisir un chiffre entre 0 / 0.5 / 1")
+                # check if the score entered is correct
                 while True:
                     try:
                         score_2 = float(input(f"Score de {match.players[1].last_name} "
@@ -84,6 +87,7 @@ def enter_match_score(match_list):
                             break
                     except ValueError:
                         print("Veuillez choisir un chiffre entre 0 / 0.5 / 1")
+                # check if the global score is correct
                 if score_1 + score_2 == 1.0:
                     match.score = [score_1, score_2]
                     break

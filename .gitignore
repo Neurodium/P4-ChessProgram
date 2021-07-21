@@ -131,3 +131,4 @@ dmypy.json
 flake8_rapport/
 Scripts/
 .idea/
+db.json
