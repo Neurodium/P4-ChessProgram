@@ -69,6 +69,7 @@ These parameters can be changed if a tournament needs to be changed
 
 ## How to use the program
 
+After executing main.py:
 1. Create a tournament
 2. Add the players to it until you reach the max number of players
 3. When all players have been added, first round is automatically generated with the pair of matches
