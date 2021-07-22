@@ -3,6 +3,7 @@ exclude =
   .git,
   .idea,
   __pycache__,
-  flake_rapport,
+  flake8_rapport,
   venv
+  Lib
 max-line-length = 119
