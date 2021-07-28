@@ -92,14 +92,6 @@ def add_player(tournament_list, player_list):
     return tournament_list
 
 
-# update global points
-def update_global_points(player_list, tournament_list):
-    for t_player in tournament_list[-1].players:
-        for player in player_list:
-            if t_player.last_name == player.last_name and t_player.first_name == player.first_name:
-                player.tournament_points += t_player.tournament_points
-
-
 # update the global ranking
 def update_players_rank(player_list):
     player_list = sorted(player_list,
