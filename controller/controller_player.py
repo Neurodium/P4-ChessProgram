@@ -106,7 +106,13 @@ def update_players_rank(player_list):
                          key=lambda player: player.tournament_points,
                          reverse=True)
     for player in range(len(player_list)):
-        player_list[player].rank = player + 1
+        if player != 0:
+            if player_list[player].tournament_points == player_list[player - 1].tournament_points:
+                player_list[player].rank = player_list[player - 1].rank
+            else:
+                player_list[player].rank = player + 1
+        else:
+            player_list[player].rank = player + 1
 
 
 # change the player ranking and tournament points

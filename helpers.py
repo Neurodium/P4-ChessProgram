@@ -80,7 +80,7 @@ def menu_navigation(menu_list, tournament_list, player_list, round_list, match_l
             choice, menu_list = menu_close_tournament(menu_list, tournament_list, match_list, round_list)
             if choice == "O":
                 close_tournament(tournament_list, round_list)
-                update_global_points(player_list, tournament_list)
+                #update_global_points(player_list, tournament_list)
                 update_players_rank(player_list)
             else:
                 pass
