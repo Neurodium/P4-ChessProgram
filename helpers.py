@@ -9,7 +9,7 @@ from view.cli.view_tournament import view_tournaments_all, \
 from controller.controller_tournament import create_tournament, \
     close_tournament
 from controller.controller_player import add_player, \
-    update_players_rank, change_player_rank, update_global_points
+    update_players_rank, change_player_rank
 from controller.controller_match import match_first_round, \
     match_next_round, enter_match_score
 from controller.controller_round import add_new_round, \

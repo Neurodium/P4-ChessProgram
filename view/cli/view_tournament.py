@@ -51,6 +51,7 @@ def view_tournament_all_rounds(menu_list, round_list, tournament_list):
                                              "Date début",
                                              "Date fin"])
             print(round_df.to_string(index=False))
+            break
         else:
             print("Ce tournoi n'existe pas")
     menu_list.pop()
@@ -122,6 +123,7 @@ def view_tournament_all_matchs(menu_list, round_list, tournament_list):
                                                  "-",
                                                  "Score 2"])
                 print(match_df.to_string(index=False))
+            break
         else:
             print("Ce tournoi n'existe pas")
 
